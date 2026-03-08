@@ -31,22 +31,22 @@ export default function Footer() {
             <ul className="space-y-2">
               <li>
                 <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  X (Twitter)
+                  X (Twitter) ↗
                 </a>
               </li>
               <li>
                 <a href="https://note.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Note
+                  Note ↗
                 </a>
               </li>
               <li>
                 <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  LinkedIn
+                  LinkedIn ↗
                 </a>
               </li>
               <li>
                 <a href="https://github.com/UC5454" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  GitHub
+                  GitHub ↗
                 </a>
               </li>
             </ul>

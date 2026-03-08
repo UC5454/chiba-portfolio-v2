@@ -40,7 +40,7 @@ export async function generateMetadata({ params }: EmployeeDetailPageProps): Pro
   }
 
   return {
-    title: `${member.name} | AI社員 | 千葉勇志 / Yushi Chiba`,
+    title: `${member.name}（${member.role}） | AI社員 | 千葉勇志 / Yushi Chiba`,
     description: `${member.role}として活躍する${member.name}の詳細プロフィール。`,
   };
 }

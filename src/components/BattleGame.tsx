@@ -86,6 +86,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   const [playerAnim, setPlayerAnim] = useState("");
   const [flashText, setFlashText] = useState<{ text: string; color: string } | null>(null);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   // Flash damage/heal text
   const showFlash = (text: string, color: string) => {
@@ -144,6 +145,11 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
     };
+  }, []);
+
+  // Focus the game container when opened for keyboard control.
+  useEffect(() => {
+    containerRef.current?.focus();
   }, []);
 
   const handleTimeout = () => {
@@ -329,7 +335,18 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   const isGameOver = state.phase === "result" && state.won === false;
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4">
+    <div
+      ref={containerRef}
+      tabIndex={-1}
+      role="dialog"
+      aria-modal="true"
+      onKeyDown={(event) => {
+        if (event.key === "Escape") {
+          onClose();
+        }
+      }}
+      className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4 outline-none"
+    >
       <div className="w-full max-w-lg bg-navy-deep border-4 border-gold-retro shadow-pixel-gold overflow-hidden">
         {/* Header */}
         <div className="bg-navy-light border-b-2 border-gold-retro/50 px-4 py-2 flex justify-between items-center">
@@ -341,7 +358,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
               </span>
             )}
           </div>
-          <button onClick={onClose} className="text-gray-400 hover:text-white text-sm cursor-pointer">
+          <button onClick={onClose} aria-label="バトルを閉じる" className="text-gray-400 hover:text-white text-sm cursor-pointer">
             ESC
           </button>
         </div>
@@ -490,7 +507,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
                       key={i}
                       onClick={() => handleAnswer(i)}
                       disabled={state.phase === "judging"}
-                      className={`${btnClass} p-2.5 text-left text-sm transition-all duration-200 cursor-pointer disabled:cursor-default flex items-center gap-2`}
+                      className={`${btnClass} p-3 min-h-[44px] text-left text-sm transition-all duration-200 cursor-pointer disabled:cursor-default flex items-center gap-2`}
                     >
                       <span className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro/60 shrink-0">
                         {["A", "B", "C", "D"][i]}

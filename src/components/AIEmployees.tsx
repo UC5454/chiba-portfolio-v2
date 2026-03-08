@@ -24,9 +24,10 @@ export default function AIEmployees() {
             <div className="bg-gradient-to-b from-gray-700 to-gray-900 border-4 border-white p-1 rounded-sm mb-4 w-36 h-36 md:w-48 md:h-48 flex items-center justify-center shadow-pixel overflow-hidden">
               <Image
                 src="/avatars/rin.png"
-                alt="リン (COO)"
+                alt="AI社員リン（COO）のアバター"
                 width={192}
                 height={192}
+                loading="lazy"
                 className="w-full h-full object-cover"
               />
             </div>
@@ -50,9 +51,10 @@ export default function AIEmployees() {
                   <div className="w-10 h-10 mx-auto bg-gray-700 mb-2 rounded-full overflow-hidden">
                     <Image
                       src={member.avatar}
-                      alt={member.name}
+                      alt={`${member.name}（${member.role}）のアバター`}
                       width={40}
                       height={40}
+                      loading="lazy"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -72,9 +74,10 @@ export default function AIEmployees() {
                     <div className="w-5 h-5 rounded-full overflow-hidden bg-gray-700 shrink-0">
                       <Image
                         src={member.avatar}
-                        alt={member.name}
+                        alt={`${member.name}（${member.role}）のアバター`}
                         width={20}
                         height={20}
+                        loading="lazy"
                         className="w-full h-full object-cover"
                       />
                     </div>

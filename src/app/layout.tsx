@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { DotGothic16, Press_Start_2P } from "next/font/google";
 
 import Footer from "@/components/Footer";
@@ -39,6 +39,21 @@ export const metadata: Metadata = {
   },
 };
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  themeColor: "#0a0e2a",
+};
+
+const websiteJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  name: "千葉勇志 / Yushi Chiba - AI Portfolio",
+  url: "https://chiba-portfolio.vercel.app",
+  description:
+    "あなたの会社にも、AI社員を。AIで可能性を無限大にする千葉勇志のポートフォリオ。",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -46,6 +61,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ja" className="dark">
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
+        />
+      </head>
       <body className={`${dotgothic.variable} ${pressStart2P.variable} antialiased`}>
         <Header />
         {children}

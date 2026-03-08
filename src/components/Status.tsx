@@ -72,7 +72,7 @@ export default function Status() {
           {locations.map((loc, i) => (
             <div
               key={i}
-              className={`group flex flex-col items-center bg-navy-light/80 p-4 md:p-6 border-2 border-white/20 ${loc.hoverBorder} transition-colors backdrop-blur-sm relative`}
+              className={`group flex flex-col items-center bg-navy-light/80 p-5 md:p-6 border-2 border-white/20 ${loc.hoverBorder} transition-colors backdrop-blur-sm relative`}
             >
               <div
                 className={`w-12 h-12 md:w-16 md:h-16 ${loc.color} rounded-none flex items-center justify-center mb-4 shadow-pixel group-hover:animate-bounce`}
@@ -89,11 +89,11 @@ export default function Status() {
                 </svg>
               </div>
               <div className="text-center">
-                <p className="text-gray-400 text-[8px] md:text-xs font-[family-name:var(--font-pixel)] mb-1">
+                <p className="text-gray-400 text-[9px] md:text-xs font-[family-name:var(--font-pixel)] mb-1">
                   {loc.label}
                 </p>
-                <h3 className="text-sm md:text-lg font-bold mb-1">{loc.title}</h3>
-                <p className="text-xs md:text-sm text-gray-300">{loc.subtitle}</p>
+                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1">{loc.title}</h3>
+                <p className="text-xs sm:text-sm text-gray-300">{loc.subtitle}</p>
               </div>
             </div>
           ))}

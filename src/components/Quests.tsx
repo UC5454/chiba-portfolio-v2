@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 import { quests } from "@/data/quests";
 
@@ -21,8 +22,16 @@ export default function Quests() {
               className="bg-navy-deep border-2 border-white p-1 relative group hover:-translate-y-2 transition-transform duration-300"
             >
               <div className="absolute -top-4 -left-4 text-3xl drop-shadow-md z-20">&#x1F4CD;</div>
-              <div className="bg-gray-800 h-40 w-full mb-4 flex items-center justify-center border border-white/20">
-                <span className="text-gray-500 font-[family-name:var(--font-pixel)] text-xs">IMAGE</span>
+              <div className="bg-gray-800 h-40 w-full mb-4 flex items-center justify-center border border-white/20 relative overflow-hidden">
+                <Image
+                  src="/images/bg-quests.webp"
+                  alt=""
+                  fill
+                  loading="lazy"
+                  sizes="(max-width: 768px) 100vw, 33vw"
+                  className="object-cover opacity-25"
+                />
+                <span className="relative z-10 text-gray-500 font-[family-name:var(--font-pixel)] text-xs">IMAGE</span>
               </div>
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">

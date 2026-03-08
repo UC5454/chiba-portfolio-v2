@@ -80,22 +80,22 @@ export default function Hero() {
 
           {/* RPG Command Menu */}
           <div className="w-full max-w-2xl mt-4">
-            <div className="bg-black/80 border-4 border-white p-3 shadow-pixel inline-flex gap-1 sm:gap-2">
+            <div className="bg-black/80 border-4 border-white p-3 shadow-pixel flex flex-wrap justify-center gap-1 sm:gap-2">
               <button
                 onClick={() => handleCommand("hanasu")}
-                className="font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
+                className="flex-1 min-w-[80px] text-center font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
               >
                 ▶ はなす
               </button>
               <button
                 onClick={() => handleCommand("shiru")}
-                className="font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
+                className="flex-1 min-w-[80px] text-center font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
               >
                 ▶ しる
               </button>
               <button
                 onClick={() => handleCommand("tatakau")}
-                className="font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
+                className="flex-1 min-w-[80px] text-center font-[family-name:var(--font-pixel)] text-[10px] sm:text-xs text-white hover:text-gold-retro transition-colors px-3 sm:px-4 py-2 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer"
               >
                 ▶ たたかう
               </button>

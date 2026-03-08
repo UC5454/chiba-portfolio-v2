@@ -88,32 +88,9 @@
   color: #0a0e2a;
 }
 
-/* Grid Pattern for Quests section */
-.grid-pattern {
-  background-image:
-    linear-gradient(#ffffff 1px, transparent 1px),
-    linear-gradient(90deg, #ffffff 1px, transparent 1px);
-  background-size: 40px 40px;
-}
-
-/* Ocean Pattern for Hero */
-.ocean-pattern {
-  background-image: radial-gradient(circle at 50% 50%, #0ea5e9 2px, transparent 2.5px);
-  background-size: 20px 20px;
-}
-
-/* Pixel Map Pattern for Hero */
-.pixel-map-pattern {
-  background-image: linear-gradient(45deg, #15803d 25%, #22c55e 25%, #22c55e 50%, #15803d 50%, #15803d 75%, #22c55e 75%, #22c55e 100%);
-  background-size: 40px 40px;
-}
-
-/* Perspective Road for CTA */
-.perspective-road {
-  background-image:
-    linear-gradient(0deg, transparent 24%, rgba(255,255,255,.3) 25%, rgba(255,255,255,.3) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.3) 75%, rgba(255,255,255,.3) 76%, transparent 77%, transparent),
-    linear-gradient(90deg, transparent 24%, rgba(255,255,255,.3) 25%, rgba(255,255,255,.3) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.3) 75%, rgba(255,255,255,.3) 76%, transparent 77%, transparent);
-  background-size: 50px 50px;
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 80px;
 }
 
 body {
