@@ -37,6 +37,20 @@
   50% { transform: translateY(-10px); }
 }
 
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  15% { transform: translateX(-8px); }
+  30% { transform: translateX(6px); }
+  45% { transform: translateX(-6px); }
+  60% { transform: translateX(4px); }
+  75% { transform: translateX(-2px); }
+}
+
+@keyframes fadeOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Retro Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;
