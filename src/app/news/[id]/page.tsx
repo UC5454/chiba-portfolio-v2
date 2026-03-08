@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 
@@ -59,6 +60,18 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
           <h2 className="font-[family-name:var(--font-pixel)] text-sm sm:text-lg text-[#3e2723] mb-4 leading-relaxed">
             {item.text}
           </h2>
+
+          {item.thumbnail && (
+            <div className="mb-6 border-2 border-[#5c3a21]/30 overflow-hidden">
+              <Image
+                src={item.thumbnail}
+                alt={item.text}
+                width={800}
+                height={400}
+                className="w-full h-auto object-cover"
+              />
+            </div>
+          )}
 
           <div className="space-y-2 text-sm sm:text-base whitespace-pre-line">{item.content}</div>
 

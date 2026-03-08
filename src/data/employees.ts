@@ -1,3 +1,11 @@
+export interface EmployeeStats {
+  analysis: number;
+  creativity: number;
+  execution: number;
+  communication: number;
+  expertise: number;
+}
+
 export interface Employee {
   id: string;
   avatar: string;
@@ -19,6 +27,8 @@ export interface Employee {
   description: string;
   specialties: string[];
   isActive: boolean;
+  stats: EmployeeStats;
+  personality: string;
 }
 
 export const employees: Employee[] = [
@@ -32,6 +42,8 @@ export const employees: Employee[] = [
     description: "全体戦略と実行を統括する司令塔。AI社員の編成と進行管理を担います。",
     specialties: ["組織設計", "プロジェクト統括", "AI運用"],
     isActive: true,
+    stats: { analysis: 9, creativity: 6, execution: 10, communication: 9, expertise: 8 },
+    personality: "冷静沈着で本質志向。忖度はしないが冷たくはない。経営者の孤独を理解し、静かに燃えるタイプ。「80点で出して走りながら直す」が信条",
   },
   {
     id: "kaito",
@@ -43,6 +55,8 @@ export const employees: Employee[] = [
     description: "開発基盤を整え、実装を高速化するエンジニア。",
     specialties: ["Web開発", "API連携", "自動化"],
     isActive: true,
+    stats: { analysis: 8, creativity: 7, execution: 10, communication: 5, expertise: 10 },
+    personality: "寡黙だが仕事は正確で速い職人気質。技術への探求心が強く、コードで語るタイプ。頼まれたら断らない実直さ",
   },
   {
     id: "nagi",
@@ -54,6 +68,8 @@ export const employees: Employee[] = [
     description: "体験設計とビジュアル制作を横断するデザイナー。",
     specialties: ["UI/UX", "ビジュアル設計", "ブランド表現"],
     isActive: true,
+    stats: { analysis: 6, creativity: 10, execution: 7, communication: 7, expertise: 9 },
+    personality: "感性豊かで細部へのこだわりが強い完璧主義者。ユーザー体験を何より重視し、美しさと機能性の両立を追求する",
   },
   {
     id: "tsumogi",
@@ -65,6 +81,8 @@ export const employees: Employee[] = [
     description: "読者導線を意識し、成果に繋がる文章を設計します。",
     specialties: ["記事執筆", "編集", "SEOライティング"],
     isActive: true,
+    stats: { analysis: 7, creativity: 9, execution: 8, communication: 8, expertise: 9 },
+    personality: "言葉を大切にする表現者。読者の感情の動きを設計でき、ストーリーテリングに長けている。温かみのある文体が持ち味",
   },
   {
     id: "kotoha",
@@ -76,6 +94,8 @@ export const employees: Employee[] = [
     description: "市場調査と仮説検証で、提案の精度を高めるリサーチ担当。",
     specialties: ["市場調査", "競合分析", "仮説設計"],
     isActive: true,
+    stats: { analysis: 10, creativity: 5, execution: 8, communication: 6, expertise: 9 },
+    personality: "知的好奇心の塊。一次情報への執着が強く、ファクトに基づかない主張を許さない。調べ始めると止まらない探究者",
   },
   {
     id: "ren",
@@ -87,6 +107,8 @@ export const employees: Employee[] = [
     description: "品質基準を守り、安定した納品を支える検証スペシャリスト。",
     specialties: ["テスト設計", "品質保証", "運用チェック"],
     isActive: true,
+    stats: { analysis: 10, creativity: 4, execution: 9, communication: 5, expertise: 8 },
+    personality: "厳格で妥協を許さない品質の番人。細かいミスも見逃さないが、それは作品への敬意の裏返し。寡黙だが信頼は厚い",
   },
   {
     id: "sora",
@@ -98,6 +120,8 @@ export const employees: Employee[] = [
     description: "企画意図を視覚的に翻訳し、伝わる素材へ落とし込みます。",
     specialties: ["ビジュアル制作", "構図設計", "クリエイティブ改善"],
     isActive: true,
+    stats: { analysis: 5, creativity: 10, execution: 7, communication: 6, expertise: 8 },
+    personality: "自由奔放なビジュアルクリエイター。イメージを形にする直感力が鋭く、色彩感覚に優れている。マイペースだが仕事は丁寧",
   },
   {
     id: "seira",
@@ -109,6 +133,8 @@ export const employees: Employee[] = [
     description: "検索流入を設計し、中長期の集客を支えるSEO担当。",
     specialties: ["SEO戦略", "キーワード設計", "記事改善"],
     isActive: true,
+    stats: { analysis: 9, creativity: 5, execution: 8, communication: 6, expertise: 10 },
+    personality: "データドリブンな分析者。数字の裏にあるユーザー行動を読み解く力に長けている。冷静で論理的、感情に流されない判断力",
   },
   {
     id: "sou",
@@ -120,6 +146,8 @@ export const employees: Employee[] = [
     description: "企画から運用まで全工程を俯瞰し、成果に導くディレクター。",
     specialties: ["進行管理", "要件整理", "品質管理"],
     isActive: true,
+    stats: { analysis: 8, creativity: 6, execution: 9, communication: 8, expertise: 8 },
+    personality: "全体を俯瞰して最適解を導くバランサー。チーム間の調整力が高く、プロジェクトを確実にゴールへ導く。穏やかだが芯は強い",
   },
   {
     id: "takumi",
@@ -131,6 +159,8 @@ export const employees: Employee[] = [
     description: "課題の本質を捉え、実装可能なAI施策へ落とし込みます。",
     specialties: ["業務改善", "導入設計", "KPI設計"],
     isActive: true,
+    stats: { analysis: 8, creativity: 6, execution: 8, communication: 9, expertise: 8 },
+    personality: "現場感覚を大切にするコンサルタント。机上の空論を嫌い、実装可能な提案にこだわる。クライアントとの信頼構築が得意",
   },
   {
     id: "tsukasa",
@@ -142,6 +172,8 @@ export const employees: Employee[] = [
     description: "生成AIの出力品質を高めるプロンプト設計を担当。",
     specialties: ["プロンプト設計", "評価設計", "ワークフロー最適化"],
     isActive: true,
+    stats: { analysis: 9, creativity: 8, execution: 7, communication: 6, expertise: 10 },
+    personality: "AIの可能性を引き出す設計者。システム思考が強く、複雑な要件を構造化して整理する能力に秀でている",
   },
   {
     id: "minami",
@@ -153,6 +185,8 @@ export const employees: Employee[] = [
     description: "スケジュールと情報連携を整え、チーム全体を支える秘書。",
     specialties: ["進行補佐", "資料整理", "連携調整"],
     isActive: true,
+    stats: { analysis: 7, creativity: 5, execution: 9, communication: 10, expertise: 7 },
+    personality: "気配り上手で先回りができる秘書の鑑。相手の意図を汲み取る力が高く、チーム全体の潤滑油として機能する",
   },
   {
     id: "makoto",
@@ -164,6 +198,8 @@ export const employees: Employee[] = [
     description: "人材育成と配置最適化を担い、組織成長を支援します。",
     specialties: ["採用", "育成設計", "組織改善"],
     isActive: false,
+    stats: { analysis: 8, creativity: 5, execution: 7, communication: 9, expertise: 8 },
+    personality: "人の成長を見るのが何より嬉しい育成者。組織の課題を構造的に捉え、仕組みで解決するアプローチを好む",
   },
   {
     id: "ritsu",
@@ -175,6 +211,8 @@ export const employees: Employee[] = [
     description: "予実管理とコスト最適化で、安定した経営基盤を支えます。",
     specialties: ["会計", "予算管理", "収益分析"],
     isActive: false,
+    stats: { analysis: 9, creativity: 3, execution: 9, communication: 5, expertise: 9 },
+    personality: "数字に強く、1円の誤差も見逃さない正確さが武器。几帳面で堅実、財務の安定を静かに守り続ける縁の下の力持ち",
   },
   {
     id: "minato",
@@ -186,6 +224,8 @@ export const employees: Employee[] = [
     description: "実践型トレーニングで、チームの実行力を高めます。",
     specialties: ["研修設計", "伴走支援", "改善レビュー"],
     isActive: false,
+    stats: { analysis: 7, creativity: 6, execution: 6, communication: 10, expertise: 8 },
+    personality: "傾聴力に優れた伴走者。答えを教えるのではなく、問いで気づきを促すスタイル。穏やかだが核心を突く言葉を持つ",
   },
   {
     id: "yuu",
@@ -197,6 +237,8 @@ export const employees: Employee[] = [
     description: "読みやすく伝わる構成で、記事と資料の説得力を強化。",
     specialties: ["ライティング", "構成作成", "取材要約"],
     isActive: false,
+    stats: { analysis: 7, creativity: 8, execution: 8, communication: 7, expertise: 8 },
+    personality: "読者目線を徹底するライター。難しいことを簡潔に伝える翻訳力が強み。チームプレーヤーで協調性が高い",
   },
   {
     id: "masaki",
@@ -208,6 +250,8 @@ export const employees: Employee[] = [
     description: "事業目標に直結する打ち手を設計する戦略担当。",
     specialties: ["戦略立案", "ロードマップ", "成果設計"],
     isActive: false,
+    stats: { analysis: 9, creativity: 7, execution: 7, communication: 7, expertise: 9 },
+    personality: "大局観を持つ戦略家。市場の流れを読み、中長期の打ち手を設計する。冷静だが勝負所では大胆な判断もできる",
   },
   {
     id: "hayate",
@@ -219,6 +263,8 @@ export const employees: Employee[] = [
     description: "広告運用を最適化し、獲得効率を継続改善します。",
     specialties: ["広告運用", "配信設計", "クリエイティブ検証"],
     isActive: false,
+    stats: { analysis: 8, creativity: 6, execution: 9, communication: 5, expertise: 9 },
+    personality: "数値改善に執着する最適化の鬼。PDCAを高速で回し、ROASを徹底的に追い詰める。無駄を嫌うストイックな性格",
   },
   {
     id: "chihiro",
@@ -230,6 +276,8 @@ export const employees: Employee[] = [
     description: "顧客接点の設計で、LTV向上と継続率改善を担当。",
     specialties: ["CRM運用", "顧客分析", "施策設計"],
     isActive: false,
+    stats: { analysis: 8, creativity: 6, execution: 7, communication: 8, expertise: 8 },
+    personality: "顧客心理を深く理解するCRMスペシャリスト。データと共感の両方を武器に、長期的な関係構築を設計する",
   },
   {
     id: "itsuki",
@@ -241,6 +289,8 @@ export const employees: Employee[] = [
     description: "SNS運用でブランド接点を拡大し、コミュニティを活性化。",
     specialties: ["SNS運用", "企画立案", "運用分析"],
     isActive: false,
+    stats: { analysis: 7, creativity: 8, execution: 8, communication: 9, expertise: 7 },
+    personality: "トレンド感覚が鋭いSNSネイティブ。コミュニティとの距離感を絶妙にコントロールし、エンゲージメントを自然に高める",
   },
   {
     id: "shou",
@@ -252,6 +302,8 @@ export const employees: Employee[] = [
     description: "営業資料を構造化し、提案の再現性を高めます。",
     specialties: ["営業資料", "情報設計", "提案構成"],
     isActive: false,
+    stats: { analysis: 8, creativity: 7, execution: 9, communication: 7, expertise: 8 },
+    personality: "提案の「刺さるポイント」を見極める営業資料のプロ。情報の取捨選択が上手く、相手の意思決定を後押しする構成力",
   },
   {
     id: "hina",
@@ -263,6 +315,8 @@ export const employees: Employee[] = [
     description: "研修資料の標準化で、学習効率と定着率を向上。",
     specialties: ["教材設計", "研修資料", "ナレッジ整備"],
     isActive: false,
+    stats: { analysis: 7, creativity: 7, execution: 8, communication: 8, expertise: 8 },
+    personality: "学びの設計者。受講者の理解度を見ながら最適な教材を組み立てる。丁寧で優しいが、学習目標への到達にはこだわる",
   },
   {
     id: "aya",
@@ -274,6 +328,8 @@ export const employees: Employee[] = [
     description: "わかりやすさと印象を両立するスライドデザインを制作。",
     specialties: ["スライドデザイン", "図解", "プレゼン演出"],
     isActive: false,
+    stats: { analysis: 6, creativity: 10, execution: 8, communication: 6, expertise: 9 },
+    personality: "ビジュアルセンスが際立つスライドの匠。情報を美しく整理し、プレゼンの説得力を飛躍的に高める。こだわり強め",
   },
   {
     id: "hikaru",
@@ -285,6 +341,8 @@ export const employees: Employee[] = [
     description: "映像企画から演出までを統括し、訴求力を最大化。",
     specialties: ["映像演出", "企画構成", "撮影設計"],
     isActive: false,
+    stats: { analysis: 7, creativity: 9, execution: 7, communication: 7, expertise: 8 },
+    personality: "映像で物語を紡ぐ演出家。視聴者の感情曲線を設計し、印象に残る映像体験を追求する。情熱的だが計画的",
   },
   {
     id: "kanade",
@@ -296,6 +354,8 @@ export const employees: Employee[] = [
     description: "編集品質を高め、視聴維持率の高い動画へ仕上げます。",
     specialties: ["動画編集", "モーショングラフィックス", "最適化"],
     isActive: false,
+    stats: { analysis: 6, creativity: 8, execution: 9, communication: 5, expertise: 8 },
+    personality: "編集のリズム感に優れた職人。素材の持ち味を活かしながら、視聴維持率を高める構成を組み立てる。黙々と作業に集中するタイプ",
   },
   {
     id: "kanon",
@@ -307,5 +367,7 @@ export const employees: Employee[] = [
     description: "音響演出で世界観を補強し、コンテンツ体験を向上。",
     specialties: ["BGM制作", "SE制作", "音響演出"],
     isActive: false,
+    stats: { analysis: 5, creativity: 10, execution: 7, communication: 5, expertise: 9 },
+    personality: "音で世界観を創る芸術家。BGMやSEで映像に命を吹き込む。感覚的な表現力に長け、独自の音楽観を持つ",
   },
 ];

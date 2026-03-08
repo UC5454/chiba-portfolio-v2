@@ -3,6 +3,7 @@ import Image from "next/image";
 import { notFound } from "next/navigation";
 
 import PageContainer from "@/components/PageContainer";
+import StatsRadar from "@/components/StatsRadar";
 import { employees } from "@/data/employees";
 
 interface EmployeeDetailPageProps {
@@ -91,6 +92,24 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
               ))}
             </div>
           </div>
+        </div>
+
+        {/* Stats Radar Chart */}
+        <div className="mt-8 bg-navy-deep/50 border border-gold-retro/30 p-4">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-4 text-center">
+            STATUS
+          </h3>
+          <div className="max-w-[320px] mx-auto">
+            <StatsRadar stats={member.stats} />
+          </div>
+        </div>
+
+        {/* Personality */}
+        <div className="mt-4 bg-navy-deep/50 border border-gold-retro/30 p-4">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-3">
+            PERSONALITY
+          </h3>
+          <p className="text-sm leading-relaxed text-gray-200">{member.personality}</p>
         </div>
       </div>
     </PageContainer>

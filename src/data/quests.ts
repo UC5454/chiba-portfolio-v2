@@ -7,6 +7,7 @@ export interface Quest {
   description: string;
   details: string;
   results: string[];
+  thumbnail?: string;
 }
 
 export const quests: Quest[] = [
