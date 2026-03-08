@@ -1,5 +1,9 @@
 import type { Metadata } from "next";
 import { DotGothic16, Press_Start_2P } from "next/font/google";
+
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
+
 import "./globals.css";
 
 const dotgothic = DotGothic16({
@@ -43,7 +47,9 @@ export default function RootLayout({
   return (
     <html lang="ja" className="dark">
       <body className={`${dotgothic.variable} ${pressStart2P.variable} antialiased`}>
+        <Header />
         {children}
+        <Footer />
       </body>
     </html>
   );

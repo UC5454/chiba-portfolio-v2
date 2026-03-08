@@ -1,8 +1,15 @@
 "use client";
 
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 
-const navItems = [
+type NavItem = {
+  href: string;
+  label: string;
+};
+
+const homeNavItems: NavItem[] = [
   { href: "#news", label: "おしらせ" },
   { href: "#status", label: "ステータス" },
   { href: "#party", label: "パーティ" },
@@ -11,33 +18,41 @@ const navItems = [
   { href: "#contact", label: "はなす" },
 ];
 
+const subpageNavItems: NavItem[] = [
+  { href: "/", label: "ホーム" },
+  { href: "/news", label: "おしらせ" },
+  { href: "/employees", label: "パーティ" },
+  { href: "/quests", label: "クエスト" },
+  { href: "/guilds", label: "ギルド" },
+  { href: "/contact", label: "はなす" },
+];
+
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
+  const pathname = usePathname();
+  const isHome = pathname === "/";
+  const navItems = isHome ? homeNavItems : subpageNavItems;
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-navy-deep/90 backdrop-blur-sm border-b-2 border-white/20">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
-        <div className="flex items-center gap-2">
+        <Link href="/" className="flex items-center gap-2">
           <div className="w-3 h-3 bg-gold-retro animate-pulse" />
-          <h1 className="text-lg md:text-xl font-bold tracking-widest text-gold-retro">
-            Yushi Chiba
-          </h1>
-        </div>
+          <h1 className="text-lg md:text-xl font-bold tracking-widest text-gold-retro">Yushi Chiba</h1>
+        </Link>
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex gap-6 text-sm">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
-              href={item.href}
+              href={isHome ? item.href : item.href}
               className="hover:text-gold-retro transition-colors"
             >
               [ {item.label} ]
-            </a>
+            </Link>
           ))}
         </nav>
 
-        {/* Mobile Menu Button */}
         <button
           className="md:hidden text-gold-retro"
           onClick={() => setIsOpen(!isOpen)}
@@ -60,18 +75,17 @@ export default function Header() {
         </button>
       </div>
 
-      {/* Mobile Nav */}
       {isOpen && (
         <nav className="md:hidden bg-navy-deep border-t border-white/10 px-4 py-4 flex flex-col gap-3 text-sm">
           {navItems.map((item) => (
-            <a
+            <Link
               key={item.href}
               href={item.href}
               className="hover:text-gold-retro transition-colors py-1"
               onClick={() => setIsOpen(false)}
             >
               [ {item.label} ]
-            </a>
+            </Link>
           ))}
         </nav>
       )}

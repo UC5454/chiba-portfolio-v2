@@ -15,6 +15,14 @@ export default function Footer() {
             X (Twitter)
           </a>
           <a
+            href="https://note.com/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-gray-400 hover:text-white transition-colors text-sm"
+          >
+            Note
+          </a>
+          <a
             href="https://www.linkedin.com/"
             target="_blank"
             rel="noopener noreferrer"
