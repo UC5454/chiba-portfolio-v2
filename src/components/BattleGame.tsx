@@ -23,6 +23,7 @@ interface BattleState {
   timer: number;
   selectedAnswer: number | null;
   wins: number;
+  won: boolean | null; // null = ongoing, true = win, false = lose
 }
 
 const PLAYER_MAX_HP = 500;
@@ -74,6 +75,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
         timer: TIMER_MAX,
         selectedAnswer: null,
         wins: prevWins,
+        won: null,
       };
     },
     [pickEnemy]
@@ -156,7 +158,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
       const nextQ = prev.currentQ + 1;
 
       if (newHp <= 0) {
-        return { ...prev, playerHp: 0, log: [...newLog, "ゆうしは たおれた..."], phase: "result", streak: 0 };
+        return { ...prev, playerHp: 0, log: [...newLog, "ゆうしは たおれた..."], phase: "result", streak: 0, won: false };
       }
       if (nextQ >= prev.questions.length) {
         return {
@@ -165,6 +167,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
           log: [...newLog, `${prev.enemy.name}に 知識で負けた...`],
           phase: "result",
           streak: 0,
+          won: false,
         };
       }
       return { ...prev, playerHp: newHp, log: newLog, currentQ: nextQ, timer: TIMER_MAX, streak: 0 };
@@ -208,13 +211,14 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
               phase: "result",
               selectedAnswer: null,
               wins: prev.wins + 1,
+              won: true,
             };
           }
 
           const nextQ = prev.currentQ + 1;
           if (nextQ >= prev.questions.length) {
-            // Answered all questions but enemy still alive
-            const surviveLog = [...newLog, `${prev.enemy.name}は まだ立っている… しかし知恵比べは終了！`];
+            // Answered all questions but enemy still alive = LOSE
+            const surviveLog = [...newLog, `${prev.enemy.name}は まだ立っている… 知恵比べに敗北！`];
             return {
               ...prev,
               enemyHp: newEnemyHp,
@@ -224,7 +228,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
               log: surviveLog,
               phase: "result",
               selectedAnswer: null,
-              wins: prev.wins + 1,
+              won: false,
             };
           }
 
@@ -266,19 +270,22 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
               log: [...newLog, "ゆうしは たおれた..."],
               phase: "result",
               selectedAnswer: null,
+              won: false,
             };
           }
 
           const nextQ = prev.currentQ + 1;
           if (nextQ >= prev.questions.length) {
+            // All questions done, enemy still alive = LOSE
             return {
               ...prev,
               playerHp: newHp,
               streak: 0,
               totalAnswered: prev.totalAnswered + 1,
-              log: [...newLog, "知恵比べ終了！"],
+              log: [...newLog, `${prev.enemy.name}は まだ立っている… 知恵比べに敗北！`],
               phase: "result",
               selectedAnswer: null,
+              won: false,
             };
           }
 
@@ -299,10 +306,10 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   };
 
   const handleNext = () => {
-    if (state.playerHp <= 0) {
-      setState(initBattle());
-    } else {
+    if (state.won) {
       setState(initBattle(state.wins, state.playerHp));
+    } else {
+      setState(initBattle());
     }
   };
 
@@ -318,8 +325,8 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   const currentQuestion = state.questions[state.currentQ];
   const timerPct = (state.timer / TIMER_MAX) * 100;
   const timerColor = state.timer > 5 ? "bg-blue-500" : state.timer > 3 ? "bg-yellow-500" : "bg-red-500";
-  const isGameOver = state.phase === "result" && state.playerHp <= 0;
-  const isWin = state.phase === "result" && state.playerHp > 0;
+  const isWin = state.phase === "result" && state.won === true;
+  const isGameOver = state.phase === "result" && state.won === false;
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4">
