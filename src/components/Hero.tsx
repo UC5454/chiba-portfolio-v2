@@ -24,11 +24,8 @@ export default function Hero() {
     <>
       <section className="relative min-h-screen flex flex-col justify-center items-center pt-16 overflow-hidden">
         {/* Background Map Effect */}
-        <div className="absolute inset-0 z-0 opacity-40">
-          <div className="w-full h-2/3 bg-blue-sky ocean-pattern" />
-          <div className="w-full h-1/3 bg-green-grass pixel-map-pattern" />
-          <div className="absolute top-[66%] left-0 w-full h-8 bg-gradient-to-b from-green-grass to-transparent" />
-        </div>
+        <div className="absolute inset-0 z-0" style={{ backgroundImage: "url('/images/bg-game-world.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
+        <div className="absolute inset-0 z-0 bg-navy-deep/50" />
 
         <div className="container mx-auto px-4 z-10 relative flex flex-col items-center">
           {/* Main Title */}

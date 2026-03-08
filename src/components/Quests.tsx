@@ -4,8 +4,8 @@ import { quests } from "@/data/quests";
 
 export default function Quests() {
   return (
-    <section id="quests" className="py-20 bg-green-900 relative overflow-hidden">
-      <div className="absolute inset-0 opacity-20 grid-pattern" />
+    <section id="quests" className="py-20 relative overflow-hidden" style={{ backgroundImage: "url('/images/bg-quests.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="absolute inset-0 bg-green-900/75" />
 
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-center mb-12">

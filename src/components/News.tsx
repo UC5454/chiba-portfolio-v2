@@ -4,8 +4,9 @@ import { colorMap, newsItems } from "@/data/news";
 
 export default function News() {
   return (
-    <section id="news" className="py-16 bg-navy-light relative">
-      <div className="container mx-auto px-4 max-w-4xl">
+    <section id="news" className="py-16 relative" style={{ backgroundImage: "url('/images/bg-news.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="absolute inset-0 bg-navy-light/85" />
+      <div className="container mx-auto px-4 max-w-4xl relative z-10">
         <div className="bg-wood-dark p-2 rounded-sm shadow-pixel">
           <div className="bg-wood-light border-4 border-[#5c3a21] p-6 relative">
             <div className="absolute top-2 left-2 w-3 h-3 rounded-full bg-gray-400 shadow-inner" />

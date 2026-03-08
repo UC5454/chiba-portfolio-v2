@@ -10,9 +10,11 @@ export default function AIEmployees() {
   return (
     <section
       id="party"
-      className="py-20 bg-[#050714] border-t-4 border-b-4 border-double border-gold-dim"
+      className="py-20 border-t-4 border-b-4 border-double border-gold-dim relative"
+      style={{ backgroundImage: "url('/images/bg-employees.webp')", backgroundSize: "cover", backgroundPosition: "center" }}
     >
-      <div className="container mx-auto px-4">
+      <div className="absolute inset-0 bg-[#050714]/80" />
+      <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-center text-gold-retro font-[family-name:var(--font-pixel)] text-base sm:text-2xl mb-12 flex items-center justify-center gap-4">
           <span className="text-2xl">&#x1F3F0;</span> 謁見の間 (AI Employees)
         </h2>

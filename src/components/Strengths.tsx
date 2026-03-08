@@ -28,8 +28,8 @@ const strengths = [
 
 export default function Strengths() {
   return (
-    <section id="strengths" className="py-20 bg-wood-dark relative">
-      <div className="absolute inset-0 bg-black/30" />
+    <section id="strengths" className="py-20 relative" style={{ backgroundImage: "url('/images/bg-strengths.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
+      <div className="absolute inset-0 bg-wood-dark/70" />
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-center text-[#deb887] font-[family-name:var(--font-pixel)] text-base sm:text-xl mb-12 drop-shadow-md">
           冒険の書 (Strengths)
