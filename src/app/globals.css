@@ -1,26 +1,111 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Colors - B4 Design System */
+  --color-navy-deep: #0a0e2a;
+  --color-navy-light: #1a1f4a;
+  --color-gold-retro: #ffd700;
+  --color-gold-dim: #c5a000;
+  --color-green-grass: #22c55e;
+  --color-green-dark: #15803d;
+  --color-blue-sky: #38bdf8;
+  --color-blue-ocean: #0ea5e9;
+  --color-wood-light: #a0522d;
+  --color-wood-dark: #8b4513;
+
+  /* Fonts */
+  --font-dotgothic: "DotGothic16", sans-serif;
+  --font-pixel: "Press Start 2P", cursive;
+
+  /* Shadows */
+  --shadow-pixel: 4px 4px 0px 0px rgba(0, 0, 0, 0.5);
+  --shadow-pixel-sm: 2px 2px 0px 0px rgba(0, 0, 0, 0.5);
+  --shadow-pixel-gold: 4px 4px 0px 0px #c5a000;
+
+  /* Animations */
+  --animate-blink: blink 1s step-end infinite;
+  --animate-float: float 3s ease-in-out infinite;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+/* Retro Scrollbar */
+::-webkit-scrollbar {
+  width: 12px;
+}
+::-webkit-scrollbar-track {
+  background: #0a0e2a;
+}
+::-webkit-scrollbar-thumb {
+  background: #ffd700;
+  border: 2px solid #0a0e2a;
+}
+
+/* Pixel Border Utilities */
+.pixel-border {
+  box-shadow:
+    -2px 0 0 0 white,
+    2px 0 0 0 white,
+    0 -2px 0 0 white,
+    0 2px 0 0 white;
+  margin: 2px;
+}
+
+.pixel-border-gold {
+  box-shadow:
+    -2px 0 0 0 #ffd700,
+    2px 0 0 0 #ffd700,
+    0 -2px 0 0 #ffd700,
+    0 2px 0 0 #ffd700;
+  margin: 2px;
+}
+
+/* Custom Text Selection */
+::selection {
+  background-color: #ffd700;
+  color: #0a0e2a;
+}
+
+/* Grid Pattern for Quests section */
+.grid-pattern {
+  background-image:
+    linear-gradient(#ffffff 1px, transparent 1px),
+    linear-gradient(90deg, #ffffff 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+/* Ocean Pattern for Hero */
+.ocean-pattern {
+  background-image: radial-gradient(circle at 50% 50%, #0ea5e9 2px, transparent 2.5px);
+  background-size: 20px 20px;
+}
+
+/* Pixel Map Pattern for Hero */
+.pixel-map-pattern {
+  background-image: linear-gradient(45deg, #15803d 25%, #22c55e 25%, #22c55e 50%, #15803d 50%, #15803d 75%, #22c55e 75%, #22c55e 100%);
+  background-size: 40px 40px;
+}
+
+/* Perspective Road for CTA */
+.perspective-road {
+  background-image:
+    linear-gradient(0deg, transparent 24%, rgba(255,255,255,.3) 25%, rgba(255,255,255,.3) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.3) 75%, rgba(255,255,255,.3) 76%, transparent 77%, transparent),
+    linear-gradient(90deg, transparent 24%, rgba(255,255,255,.3) 25%, rgba(255,255,255,.3) 26%, transparent 27%, transparent 74%, rgba(255,255,255,.3) 75%, rgba(255,255,255,.3) 76%, transparent 77%, transparent);
+  background-size: 50px 50px;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-navy-deep);
+  color: #f3f4f6;
+  font-family: var(--font-dotgothic);
+  line-height: 1.75;
+  overflow-x: hidden;
 }
