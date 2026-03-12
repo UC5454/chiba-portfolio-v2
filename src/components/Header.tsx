@@ -24,6 +24,7 @@ const subpageNavItems: NavItem[] = [
   { href: "/employees", label: "パーティ" },
   { href: "/quests", label: "クエスト" },
   { href: "/guilds", label: "ギルド" },
+  { href: "/media", label: "メディア" },
   { href: "/contact", label: "はなす" },
 ];
 
