@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { mediaCategories } from "@/data/mediaCategories";
 
 export const metadata: Metadata = {
   title: {
@@ -40,20 +41,21 @@ export default function MediaLayout({ children }: { children: React.ReactNode })
       <footer className="border-t border-gray-200 bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            {/* カテゴリ列: mediaCategories から動的生成（2列に分割） */}
             <div>
               <h4 className="text-sm font-semibold text-gray-900 mb-3">カテゴリ</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li><Link href="/media/ai-employees" className="hover:text-gray-900">AI社員・実運用</Link></li>
-                <li><Link href="/media/ai-business" className="hover:text-gray-900">AI導入・ビジネス</Link></li>
-                <li><Link href="/media/education" className="hover:text-gray-900">AI研修・教育</Link></li>
+                {mediaCategories.slice(0, Math.ceil(mediaCategories.length / 2)).map((cat) => (
+                  <li key={cat.slug}><Link href={`/media/${cat.slug}`} className="hover:text-gray-900">{cat.name}</Link></li>
+                ))}
               </ul>
             </div>
             <div>
               <h4 className="text-sm font-semibold text-gray-900 mb-3">&nbsp;</h4>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li><Link href="/media/government" className="hover:text-gray-900">行政・自治体連携</Link></li>
-                <li><Link href="/media/column" className="hover:text-gray-900">コラム</Link></li>
-                <li><Link href="/media/events" className="hover:text-gray-900">イベント</Link></li>
+                {mediaCategories.slice(Math.ceil(mediaCategories.length / 2)).map((cat) => (
+                  <li key={cat.slug}><Link href={`/media/${cat.slug}`} className="hover:text-gray-900">{cat.name}</Link></li>
+                ))}
               </ul>
             </div>
             <div>

@@ -4,6 +4,9 @@ import { useEffect, useState } from "react";
 import { HeadingItem } from "@/types/media";
 import { trackTocClick } from "@/lib/analytics";
 
+const COLLAPSE_THRESHOLD = 8;
+const VISIBLE_WHEN_COLLAPSED = 5;
+
 interface TableOfContentsProps {
   headings: HeadingItem[];
   articleTitle?: string;
@@ -11,6 +14,8 @@ interface TableOfContentsProps {
 
 export default function TableOfContents({ headings, articleTitle }: TableOfContentsProps) {
   const [activeId, setActiveId] = useState<string>("");
+  const shouldCollapse = headings.length > COLLAPSE_THRESHOLD;
+  const [isExpanded, setIsExpanded] = useState(!shouldCollapse);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -34,6 +39,9 @@ export default function TableOfContents({ headings, articleTitle }: TableOfConte
 
   if (headings.length < 2) return null;
 
+  const visibleHeadings = isExpanded ? headings : headings.slice(0, VISIBLE_WHEN_COLLAPSED);
+  const hiddenCount = headings.length - VISIBLE_WHEN_COLLAPSED;
+
   return (
     <nav className="bg-gray-50 border border-gray-200 rounded-xl p-5 mb-8">
       <p className="text-sm font-bold text-gray-900 mb-3 flex items-center gap-2">
@@ -41,9 +49,14 @@ export default function TableOfContents({ headings, articleTitle }: TableOfConte
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 10h16M4 14h16M4 18h16" />
         </svg>
         目次
+        {shouldCollapse && (
+          <span className="text-xs font-normal text-gray-400 ml-auto">
+            {headings.length}件
+          </span>
+        )}
       </p>
       <ol className="space-y-1.5">
-        {headings.map((h) => (
+        {visibleHeadings.map((h) => (
           <li key={h.id}>
             <a
               href={`#${h.id}`}
@@ -66,6 +79,23 @@ export default function TableOfContents({ headings, articleTitle }: TableOfConte
           </li>
         ))}
       </ol>
+      {shouldCollapse && (
+        <button
+          type="button"
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="mt-3 text-sm text-blue-600 hover:text-blue-800 transition-colors flex items-center gap-1"
+        >
+          <svg
+            className={`w-3.5 h-3.5 transition-transform ${isExpanded ? "rotate-180" : ""}`}
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+          {isExpanded ? "折りたたむ" : `すべて表示（残り${hiddenCount}件）`}
+        </button>
+      )}
     </nav>
   );
 }
