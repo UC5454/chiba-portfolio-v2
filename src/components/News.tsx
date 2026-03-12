@@ -33,7 +33,7 @@ export default function News() {
                         {item.type}
                       </span>
                       <span className="text-sm font-bold text-gray-500">{item.date}</span>
-                      <span className="text-base font-extrabold">{item.text}</span>
+                      <span className="text-base sm:text-lg font-black">{item.text}</span>
                     </Link>
                   </li>
                 );

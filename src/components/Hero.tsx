@@ -28,7 +28,7 @@ export default function Hero() {
 
   return (
     <>
-      <section className="relative min-h-[100svh] flex flex-col justify-center items-center pt-16 overflow-hidden">
+      <section className="relative min-h-[100svh] flex flex-col justify-center items-center pt-16 pb-8 overflow-hidden">
         {/* Background Map Effect */}
         <div className="absolute inset-0 z-0" style={{ backgroundImage: "url('/images/bg-game-world.png')", backgroundSize: "cover", backgroundPosition: "center" }} />
         <div className="absolute inset-0 z-0 bg-navy-deep/50" />
@@ -39,7 +39,7 @@ export default function Hero() {
 
         <div className="container mx-auto px-4 z-10 relative flex flex-col items-center">
           {/* Main Title */}
-          <div className="text-center mb-8 animate-float">
+          <div className="text-center mb-4 sm:mb-8 animate-float">
             <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] md:text-sm mb-4 tracking-widest">
               ぼうけん かいし...
             </p>
@@ -54,18 +54,18 @@ export default function Hero() {
           </div>
 
           {/* Character Sprite */}
-          <div className="mb-8 relative group cursor-pointer">
-            <div className="w-36 h-36 md:w-48 md:h-48 bg-navy-light border-4 border-white pixel-border flex items-center justify-center overflow-hidden">
+          <div className="mb-4 sm:mb-8 relative group cursor-pointer">
+            <div className="w-44 h-44 sm:w-52 sm:h-52 md:w-60 md:h-60 bg-navy-light border-4 border-white pixel-border flex items-center justify-center overflow-hidden">
               <Image
-                src="/images/hero-chiba.png"
+                src="/images/hero-chiba-new.png"
                 alt="千葉勇志"
-                width={192}
-                height={192}
+                width={240}
+                height={240}
                 className="w-full h-full object-cover"
                 priority
               />
             </div>
-            <div className="absolute -bottom-2 -right-2 bg-gold-retro text-black text-xs px-2 py-1 font-bold border-2 border-black">
+            <div className="absolute -bottom-2 -right-2 bg-gold-retro text-black text-xs sm:text-sm px-3 py-1.5 font-bold border-2 border-black">
               レベル99
             </div>
           </div>
@@ -86,22 +86,22 @@ export default function Hero() {
 
           {/* RPG Command Menu */}
           <div className="w-full max-w-2xl mt-4">
-            <div className="bg-black/80 border-4 border-white p-3 sm:p-4 shadow-pixel flex flex-col sm:flex-row justify-center gap-2 sm:gap-3">
+            <div className="bg-black/80 border-4 border-white p-4 sm:p-5 shadow-pixel flex flex-col sm:flex-row justify-center gap-3 sm:gap-4">
               <button
                 onClick={() => handleCommand("hanasu")}
-                className="flex-1 min-w-[100px] sm:min-w-[120px] text-center font-[family-name:var(--font-pixel)] text-xs sm:text-sm text-white hover:text-gold-retro transition-colors px-4 sm:px-6 py-3 sm:py-4 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
+                className="flex-1 min-w-[120px] sm:min-w-[140px] text-center font-[family-name:var(--font-pixel)] text-sm sm:text-base text-white hover:text-gold-retro transition-colors px-5 sm:px-8 py-4 sm:py-5 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
               >
                 ▶ はなす
               </button>
               <button
                 onClick={() => handleCommand("shiru")}
-                className="flex-1 min-w-[100px] sm:min-w-[120px] text-center font-[family-name:var(--font-pixel)] text-xs sm:text-sm text-white hover:text-gold-retro transition-colors px-4 sm:px-6 py-3 sm:py-4 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
+                className="flex-1 min-w-[120px] sm:min-w-[140px] text-center font-[family-name:var(--font-pixel)] text-sm sm:text-base text-white hover:text-gold-retro transition-colors px-5 sm:px-8 py-4 sm:py-5 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
               >
                 ▶ しる
               </button>
               <button
                 onClick={() => handleCommand("tatakau")}
-                className="flex-1 min-w-[100px] sm:min-w-[120px] text-center font-[family-name:var(--font-pixel)] text-xs sm:text-sm text-white hover:text-gold-retro transition-colors px-4 sm:px-6 py-3 sm:py-4 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
+                className="flex-1 min-w-[120px] sm:min-w-[140px] text-center font-[family-name:var(--font-pixel)] text-sm sm:text-base text-white hover:text-gold-retro transition-colors px-5 sm:px-8 py-4 sm:py-5 border-2 border-transparent hover:border-gold-retro/50 cursor-pointer hover:bg-white/10"
               >
                 ▶ たたかう
               </button>

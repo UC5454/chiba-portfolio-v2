@@ -31,7 +31,7 @@ export default function Quests() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover opacity-25"
                 />
-                <span className="relative z-10 text-gray-500 font-[family-name:var(--font-pixel)] text-xs">クエスト</span>
+                <span className="relative z-10 text-gray-500 font-[family-name:var(--font-pixel)] text-xs">ぼうけんのきろく</span>
               </div>
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">
@@ -44,9 +44,9 @@ export default function Quests() {
                 <p className="text-sm text-gray-300 mb-4">{quest.description}</p>
                 <Link
                   href={`/quests/${quest.id}`}
-                  className="block text-center bg-blue-600 hover:bg-blue-500 text-white py-2 text-xs font-[family-name:var(--font-pixel)] transition-colors"
+                  className="block text-center bg-gold-retro/20 hover:bg-gold-retro/30 border-2 border-gold-retro/60 text-gold-retro py-2 text-xs font-[family-name:var(--font-pixel)] transition-colors"
                 >
-                  詳細を見る
+                  ▶ くわしく見る
                 </Link>
               </div>
             </div>

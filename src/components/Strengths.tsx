@@ -39,11 +39,13 @@ export default function Strengths() {
           {strengths.map((s, i) => (
             <div
               key={i}
-              className={`w-full md:w-80 bg-[#fdf5e6] text-gray-800 p-6 shadow-lg transform ${s.rotate} hover:rotate-0 transition-transform duration-300 relative hover:shadow-[0_0_20px_rgba(255,100,0,0.5),0_0_40px_rgba(255,50,0,0.3)] transition-shadow duration-500`}
+              className={`group w-full md:w-80 bg-[#fdf5e6] text-gray-800 p-6 shadow-lg transform ${s.rotate} hover:rotate-0 transition-all duration-300 relative cursor-default hover:shadow-[0_0_30px_rgba(255,120,0,0.6),0_0_60px_rgba(255,60,0,0.3),0_0_100px_rgba(255,30,0,0.15)]`}
             >
               {/* Tape effect */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-16 bg-red-800/20 rotate-90 rounded" />
-              <h3 className="font-bold text-lg mb-2 border-b-2 border-gray-300 pb-1">
+              {/* Fire glow border on hover */}
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none border-2 border-orange-400/60" />
+              <h3 className="font-bold text-lg mb-2 border-b-2 border-gray-300 pb-1 group-hover:text-orange-700 transition-colors">
                 {s.title}
               </h3>
               <p className="leading-relaxed whitespace-pre-line">{s.text}</p>

@@ -40,7 +40,7 @@ export default function AboutPage() {
         <section className="bg-navy-light border-2 border-gold-retro/30 p-6 md:p-8 mb-6">
           <div className="flex flex-col md:flex-row gap-6 items-center md:items-start">
             <div className="w-40 h-40 md:w-48 md:h-48 border-4 border-gold-retro overflow-hidden shrink-0">
-              <Image src="/images/hero-chiba.png" alt="千葉勇志" width={192} height={192} className="w-full h-full object-cover" />
+              <Image src="/images/hero-chiba-new.png" alt="千葉勇志" width={192} height={192} className="w-full h-full object-cover" />
             </div>
             <div>
               <h2 className="text-2xl font-bold text-gold-retro mb-2">千葉 勇志</h2>

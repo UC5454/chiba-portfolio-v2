@@ -57,6 +57,71 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   const [sparkles, setSparkles] = useState<{ id: number; x: number; y: number; delay: number }[]>([]);
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
+
+  // Sound effects using Web Audio API
+  const playSound = useCallback((type: "start" | "correct" | "wrong" | "win" | "lose") => {
+    try {
+      if (!audioCtxRef.current) {
+        audioCtxRef.current = new (window.AudioContext || (window as unknown as { webkitAudioContext: typeof AudioContext }).webkitAudioContext)();
+      }
+      const ctx = audioCtxRef.current;
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain);
+      gain.connect(ctx.destination);
+      gain.gain.value = 0.15;
+
+      switch (type) {
+        case "start":
+          osc.frequency.setValueAtTime(440, ctx.currentTime);
+          osc.frequency.setValueAtTime(660, ctx.currentTime + 0.1);
+          osc.frequency.setValueAtTime(880, ctx.currentTime + 0.2);
+          gain.gain.setValueAtTime(0.15, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.4);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.4);
+          break;
+        case "correct":
+          osc.frequency.setValueAtTime(523, ctx.currentTime);
+          osc.frequency.setValueAtTime(659, ctx.currentTime + 0.08);
+          osc.frequency.setValueAtTime(784, ctx.currentTime + 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.3);
+          break;
+        case "wrong":
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(200, ctx.currentTime);
+          osc.frequency.setValueAtTime(150, ctx.currentTime + 0.15);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.3);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.3);
+          break;
+        case "win":
+          osc.frequency.setValueAtTime(523, ctx.currentTime);
+          osc.frequency.setValueAtTime(659, ctx.currentTime + 0.12);
+          osc.frequency.setValueAtTime(784, ctx.currentTime + 0.24);
+          osc.frequency.setValueAtTime(1047, ctx.currentTime + 0.36);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.6);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.6);
+          break;
+        case "lose":
+          osc.type = "sawtooth";
+          osc.frequency.setValueAtTime(300, ctx.currentTime);
+          osc.frequency.setValueAtTime(250, ctx.currentTime + 0.2);
+          osc.frequency.setValueAtTime(200, ctx.currentTime + 0.4);
+          osc.frequency.setValueAtTime(150, ctx.currentTime + 0.6);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.8);
+          osc.start(ctx.currentTime);
+          osc.stop(ctx.currentTime + 0.8);
+          break;
+      }
+    } catch {
+      // Audio not available, ignore
+    }
+  }, []);
 
   // Screen effects
   const triggerScreenEffect = (effect: string, duration = 500) => {
@@ -117,12 +182,13 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
   useEffect(() => {
     if (state.phase === "battle-start") {
       triggerScreenEffect("battle-start-flash", 1200);
+      playSound("start");
       const t = setTimeout(() => {
         setState((prev) => ({ ...prev, phase: "intro" }));
       }, 1200);
       return () => clearTimeout(t);
     }
-  }, [state.phase]);
+  }, [state.phase, playSound]);
 
   // Intro -> question transition
   useEffect(() => {
@@ -177,6 +243,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
       animateEnemy("shake");
       triggerScreenEffect("screen-flash-green", 400);
       showFlash("正解！", "text-green-400");
+      playSound("correct");
 
       setTimeout(() => {
         setState((prev) => {
@@ -213,6 +280,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
     } else {
       triggerScreenEffect("screen-shake-red", 600);
       showFlash("不正解...", "text-red-400");
+      playSound("wrong");
 
       setTimeout(() => {
         setState((prev) => {
@@ -244,12 +312,15 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
     }
   };
 
-  // Trigger sparkles on win
+  // Trigger sparkles and sound on result
   useEffect(() => {
     if (state.phase === "result" && state.won === true) {
       triggerSparkles();
+      playSound("win");
+    } else if (state.phase === "result" && state.won === false) {
+      playSound("lose");
     }
-  }, [state.phase, state.won]);
+  }, [state.phase, state.won, playSound]);
 
   // Auto-scroll log
   useEffect(() => {
@@ -356,7 +427,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
             onClose();
           }
         }}
-        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4 outline-none"
+        className="fixed inset-0 z-50 flex items-center justify-center bg-black/90 p-2 sm:p-4 md:p-6 outline-none"
       >
         {/* Battle Start Flash Overlay */}
         {state.phase === "battle-start" && (
@@ -371,7 +442,7 @@ export default function BattleGame({ onClose }: { onClose: () => void }) {
 
         {/* Main Container */}
         <div
-          className={`w-full max-w-2xl bg-navy-deep border-4 border-gold-retro shadow-pixel-gold overflow-hidden ${
+          className={`w-full max-w-3xl bg-navy-deep border-4 border-gold-retro shadow-pixel-gold overflow-hidden ${
             state.phase === "battle-start" ? "animate-[battleStartShake_0.8s_ease-in-out]" : ""
           } ${screenEffectClass}`}
         >

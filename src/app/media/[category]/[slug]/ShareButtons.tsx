@@ -31,7 +31,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
         href={xShareUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-gray-900 hover:text-white transition-colors"
+        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#1a1f4a]/10 border border-[#c5a000]/20 text-gray-500 hover:bg-gray-900 hover:text-white transition-colors"
         aria-label="Xでシェア"
         onClick={() => trackSocialShareClick("x", title)}
       >
@@ -42,7 +42,7 @@ export default function ShareButtons({ title, url }: ShareButtonsProps) {
       <button
         type="button"
         onClick={handleCopy}
-        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-gray-100 text-gray-500 hover:bg-blue-600 hover:text-white transition-colors"
+        className="inline-flex items-center justify-center w-8 h-8 rounded-full bg-[#1a1f4a]/10 border border-[#c5a000]/20 text-gray-500 hover:bg-blue-600 hover:text-white transition-colors"
         aria-label="リンクをコピー"
       >
         {copied ? (

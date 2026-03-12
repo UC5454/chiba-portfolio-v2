@@ -180,7 +180,7 @@ export default async function ArticlePage({ params }: PageProps) {
         wordCount={article.readingTime * 500}
         readingTime={article.readingTime}
       />
-      <div className="bg-white">
+      <div className="bg-[#fdf5e6]">
         <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
           {/* Breadcrumb */}
           <nav className="text-sm text-gray-400 mb-6">
@@ -269,11 +269,11 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Internal link to portfolio */}
           {portfolioLink && (
-            <div className="mt-10 p-4 bg-gray-50 rounded-lg border border-gray-200 flex items-center justify-between">
+            <div className="mt-10 p-4 bg-[#f5edd6] rounded-lg border border-[#c5a000]/20 flex items-center justify-between">
               <span className="text-sm text-gray-600">この記事のテーマに関連するポートフォリオ</span>
               <Link
                 href={portfolioLink.href}
-                className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-[#0ea5e9] hover:text-[#ffd700] transition-colors flex items-center gap-1"
               >
                 {portfolioLink.label}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -282,7 +282,7 @@ export default async function ArticlePage({ params }: PageProps) {
           )}
 
           {/* Author profile with SNS links */}
-          <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
+          <div className="mt-12 p-6 bg-[#f5edd6] rounded-xl border border-[#c5a000]/20">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-lg shrink-0">
                 千
@@ -319,15 +319,13 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Category-specific CTA */}
           <div
-            className="mt-8 p-6 md:p-8 rounded-xl text-white text-center"
-            style={{ backgroundColor: cta.accent }}
+            className="mt-8 p-6 md:p-8 rounded-xl text-center bg-[#0a0e2a]"
           >
-            <h3 className="text-lg md:text-xl font-bold mb-2">{cta.heading}</h3>
-            <p className="text-sm opacity-90 mb-5 max-w-lg mx-auto">{cta.description}</p>
+            <h3 className="text-lg md:text-xl font-bold mb-2 text-white">{cta.heading}</h3>
+            <p className="text-sm text-gray-300 mb-5 max-w-lg mx-auto">{cta.description}</p>
             <a
               href={cta.href}
-              className="inline-block bg-white font-bold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
-              style={{ color: cta.accent }}
+              className="inline-block bg-[#ffd700] text-[#0a0e2a] font-[family-name:var(--font-pixel)] text-xs sm:text-sm px-6 py-3 rounded-lg border-b-2 border-r-2 border-[#8b6914] hover:bg-[#c5a000] transition-colors"
               data-gtm-event="cta_click"
               data-gtm-cta-text={cta.buttonText}
               data-gtm-cta-position="article-bottom"
@@ -350,7 +348,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     <Link
                       key={r.slug}
                       href={`/media/${r.category}/${r.slug}`}
-                      className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md transition-shadow block"
+                      className="bg-white/80 p-4 rounded-xl border border-[#c5a000]/20 hover:shadow-md transition-shadow block"
                     >
                       {rCat && (
                         <span
@@ -384,7 +382,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     <Link
                       key={`${r.category}/${r.slug}`}
                       href={`/media/${r.category}/${r.slug}`}
-                      className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md transition-shadow block"
+                      className="bg-white/80 p-4 rounded-xl border border-[#c5a000]/20 hover:shadow-md transition-shadow block"
                     >
                       {rCat && (
                         <span
@@ -411,10 +409,10 @@ export default async function ArticlePage({ params }: PageProps) {
               {prev ? (
                 <Link
                   href={`/media/${prev.category}/${prev.slug}`}
-                  className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
+                  className="p-4 border border-[#c5a000]/20 rounded-xl hover:bg-[#f5edd6] transition-colors group"
                 >
                   <span className="text-xs text-gray-400">← 前の記事</span>
-                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-[#0ea5e9] transition-colors">
                     {prev.title}
                   </p>
                 </Link>
@@ -424,10 +422,10 @@ export default async function ArticlePage({ params }: PageProps) {
               {next ? (
                 <Link
                   href={`/media/${next.category}/${next.slug}`}
-                  className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-right group"
+                  className="p-4 border border-[#c5a000]/20 rounded-xl hover:bg-[#f5edd6] transition-colors text-right group"
                 >
                   <span className="text-xs text-gray-400">次の記事 →</span>
-                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
+                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-[#0ea5e9] transition-colors">
                     {next.title}
                   </p>
                 </Link>

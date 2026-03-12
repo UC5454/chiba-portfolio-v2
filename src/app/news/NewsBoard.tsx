@@ -5,12 +5,17 @@ import { useMemo, useState } from "react";
 
 import { colorMap, newsItems } from "@/data/news";
 
-const filters = ["ALL", "IMPORTANT", "UPDATE", "COMMUNITY"] as const;
+const filters = [
+  { key: "ALL", label: "すべて" },
+  { key: "じゅうよう", label: "じゅうよう" },
+  { key: "あっぷでーと", label: "あっぷでーと" },
+  { key: "こみゅにてぃ", label: "こみゅにてぃ" },
+] as const;
 
-type Filter = (typeof filters)[number];
+type FilterKey = (typeof filters)[number]["key"];
 
 export default function NewsBoard() {
-  const [activeFilter, setActiveFilter] = useState<Filter>("ALL");
+  const [activeFilter, setActiveFilter] = useState<FilterKey>("ALL");
 
   const filteredItems = useMemo(() => {
     if (activeFilter === "ALL") {
@@ -28,17 +33,19 @@ export default function NewsBoard() {
 
         <div className="flex flex-wrap gap-2 mb-6">
           {filters.map((filter) => {
-            const isActive = activeFilter === filter;
+            const isActive = activeFilter === filter.key;
             return (
               <button
-                key={filter}
+                key={filter.key}
                 type="button"
-                className={`bg-navy-light border border-white/30 px-3 py-1 text-xs font-[family-name:var(--font-pixel)] transition-colors ${
-                  isActive ? "bg-gold-retro text-navy-deep" : "text-white"
+                className={`border-2 px-4 py-2 text-xs font-[family-name:var(--font-pixel)] transition-all cursor-pointer ${
+                  isActive
+                    ? "bg-gold-retro text-navy-deep border-[#8b6914] shadow-[2px_2px_0_rgba(0,0,0,0.3)] font-bold"
+                    : "bg-navy-light text-white/80 border-white/30 hover:border-gold-retro/60 hover:text-gold-retro"
                 }`}
-                onClick={() => setActiveFilter(filter)}
+                onClick={() => setActiveFilter(filter.key)}
               >
-                {filter}
+                {isActive ? "▶ " : ""}{filter.label}
               </button>
             );
           })}
@@ -59,7 +66,7 @@ export default function NewsBoard() {
                     {item.type}
                   </span>
                   <span className="text-sm font-bold text-gray-500">{item.date}</span>
-                  <span className="font-bold">{item.text}</span>
+                  <span className="font-extrabold text-base">{item.text}</span>
                 </Link>
               </li>
             );

@@ -60,8 +60,8 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
       breadcrumb={[{ label: "AI社員一覧", href: "/employees" }, { label: member.name }]}
     >
       <div className="max-w-4xl mx-auto mb-4">
-        <Link href="/employees" className="inline-flex items-center gap-1 text-gold-retro hover:text-white text-sm mb-4 transition-colors">
-          ← パーティ一覧にもどる
+        <Link href="/employees" className="inline-flex items-center gap-2 bg-navy-light border-2 border-gold-retro/50 hover:border-gold-retro text-gold-retro hover:text-white font-[family-name:var(--font-pixel)] text-xs px-4 py-2.5 transition-all hover:-translate-x-1">
+          ◀ パーティ一覧にもどる
         </Link>
       </div>
       <div className="max-w-4xl mx-auto bg-navy-light border-2 border-white/20 shadow-pixel p-4 md:p-8">

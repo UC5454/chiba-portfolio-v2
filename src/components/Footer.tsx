@@ -5,15 +5,23 @@ export default function Footer() {
   return (
     <footer className="bg-black py-8 border-t-4 border-gray-800">
       <div className="container mx-auto px-4">
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6 mb-8">
           <div>
             <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">メニュー</h4>
             <ul className="space-y-2">
               <li><Link href="/" className="text-gray-400 hover:text-white transition-colors text-sm">ホーム</Link></li>
               <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">しょうかい</Link></li>
-              <li><Link href="/quests" className="text-gray-400 hover:text-white transition-colors text-sm">クエスト</Link></li>
               <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">おしらせ</Link></li>
               <li><Link href="/media" className="text-gray-400 hover:text-white transition-colors text-sm">コラム</Link></li>
+              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">おといあわせ</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">チーム</h4>
+            <ul className="space-y-2">
+              <li><Link href="/employees" className="text-gray-400 hover:text-white transition-colors text-sm">パーティ</Link></li>
+              <li><Link href="/quests" className="text-gray-400 hover:text-white transition-colors text-sm">クエスト</Link></li>
+              <li><Link href="/guilds" className="text-gray-400 hover:text-white transition-colors text-sm">ギルド</Link></li>
             </ul>
           </div>
           <div>
@@ -26,19 +34,6 @@ export default function Footer() {
                   </Link>
                 </li>
               ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">チーム</h4>
-            <ul className="space-y-2">
-              <li><Link href="/employees" className="text-gray-400 hover:text-white transition-colors text-sm">パーティ</Link></li>
-              <li><Link href="/guilds" className="text-gray-400 hover:text-white transition-colors text-sm">ギルド</Link></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">おといあわせ</h4>
-            <ul className="space-y-2">
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">おといあわせ</Link></li>
             </ul>
           </div>
           <div>
@@ -64,6 +59,12 @@ export default function Footer() {
                   ギットハブ ↗
                 </a>
               </li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">おといあわせ</h4>
+            <ul className="space-y-2">
+              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">おといあわせフォーム</Link></li>
             </ul>
           </div>
         </div>
