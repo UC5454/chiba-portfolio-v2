@@ -1,0 +1,46 @@
+# 千葉勇志 / Yushi Chiba - AI Portfolio
+
+> あなたの会社にも、AI社員を。AIで可能性を無限大にする。
+
+## About
+
+千葉勇志（Chiba Yushi）は株式会社SOU代表、株式会社デジタルゴリラ取締役COO兼CAIO。
+25名のAI社員チームを構築・運用する「体験主義」のAIストラテジスト。
+
+## Key Facts
+
+- 25名6チームのAI社員組織を運用（note-team, web-team, creative-team, marketing-team, slides-team, ai-consulting-team）
+- デジタルゴリラ取締役就任後、1年で約300〜400%の成長を達成
+- 東北AIコミュニティ「TOHOKU-生成AIコミュニティ」主宰（300名超）
+- 東北AI維新Conference 2026 主催
+- 登壇実績：累計50回以上、動員1,500〜2,000名以上
+- 社員7名で月間1,714時間の業務削減を実現
+
+## Services
+
+- AI導入コンサルティング（AI社員構築・業務自動化）
+- AI研修・講演（大学・企業・自治体向け）
+- 行政・自治体DX支援
+
+## Media Categories
+
+- AI社員・実運用: /media/ai-employees
+- AI導入・ビジネス: /media/ai-business
+- AI研修・教育: /media/education
+- 行政・自治体連携: /media/government
+- コラム: /media/column
+- イベント・コミュニティ: /media/events
+- テクニカル: /media/tech
+
+## Links
+
+- Portfolio: https://chiba-portfolio.vercel.app
+- X (Twitter): https://x.com/chibayuushi
+- Note: https://note.com/chibayuushi
+- Contact: y.chiba@digital-gorilla.co.jp
+
+## Philosophy
+
+- 体験主義: 一次情報を最も重視する。伝聞・推測ではなく、自ら体験し検証した情報を信じる
+- AI活用の本質: AIによる効率化はスタート地点。真の価値は人間が生み出す創造性とイノベーション
+- 泥臭く、本気で: 戦略だけでなく現場に入り込み、手を動かし、汗をかく

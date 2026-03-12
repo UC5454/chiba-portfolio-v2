@@ -103,7 +103,8 @@
 .media-content code { background: #f3f4f6; color: #1f2937; padding: 0.15rem 0.4rem; border-radius: 4px; font-size: 0.875em; }
 .media-content pre { background: #1f2937; color: #e5e7eb; padding: 1.25rem; border-radius: 8px; overflow-x: auto; margin: 1.5rem 0; }
 .media-content pre code { background: none; color: inherit; padding: 0; }
-.media-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9375rem; }
+.media-content .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; margin: 1.5rem 0; }
+.media-content table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9375rem; min-width: 400px; }
 .media-content th { background: #f9fafb; color: #111827; font-weight: 600; padding: 0.75rem 1rem; text-align: left; border: 1px solid #e5e7eb; }
 .media-content td { padding: 0.75rem 1rem; border: 1px solid #e5e7eb; }
 .media-content tr:hover { background: #f9fafb; }

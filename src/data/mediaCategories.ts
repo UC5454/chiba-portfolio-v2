@@ -7,6 +7,7 @@ export const mediaCategories: CategoryInfo[] = [
   { slug: "government", name: "行政・自治体連携", icon: "🏛️", description: "宮城県庁との勉強会、自治体DXの最前線。", color: "#f59e0b" },
   { slug: "column", name: "コラム", icon: "✍️", description: "AIと経営、体験主義、働き方について。", color: "#6366f1" },
   { slug: "events", name: "イベント・コミュニティ", icon: "🎪", description: "東北AI維新Conference、コミュニティ活動の記録。", color: "#ec4899" },
+  { slug: "tech", name: "テクニカル", icon: "🔧", description: "CLAUDE.md設計・MCP・Claude Code活用など、技術者向けの深掘り記事。", color: "#06b6d4" },
 ];
 
 export function getCategoryBySlug(slug: string): CategoryInfo | undefined {

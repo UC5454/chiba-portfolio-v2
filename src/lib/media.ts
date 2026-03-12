@@ -3,7 +3,7 @@ import path from "path";
 import matter from "gray-matter";
 import { remark } from "remark";
 import html from "remark-html";
-import { MediaArticle, MediaCategory } from "@/types/media";
+import { MediaArticle, MediaCategory, HeadingItem } from "@/types/media";
 
 const CONTENT_DIR = path.join(process.cwd(), "src/content/media");
 
@@ -21,13 +21,60 @@ function getMarkdownFiles(categoryDir: string): string[] {
   return fs.readdirSync(dirPath).filter((file) => file.endsWith(".md"));
 }
 
+/** Generate a URL-safe slug from heading text */
+function slugify(text: string): string {
+  return text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s-]/gu, "")
+    .replace(/\s+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+/** Extract headings from HTML and add IDs */
+function processHeadings(htmlContent: string): { html: string; headings: HeadingItem[] } {
+  const headings: HeadingItem[] = [];
+  const slugCounts: Record<string, number> = {};
+
+  const processed = htmlContent.replace(
+    /<h([23])>(.*?)<\/h[23]>/g,
+    (_match, level: string, text: string) => {
+      const plainText = text.replace(/<[^>]*>/g, "");
+      let id = slugify(plainText);
+      if (!id) id = `heading-${headings.length}`;
+      // Handle duplicates
+      if (slugCounts[id] !== undefined) {
+        slugCounts[id]++;
+        id = `${id}-${slugCounts[id]}`;
+      } else {
+        slugCounts[id] = 0;
+      }
+      headings.push({ id, text: plainText, level: parseInt(level) as 2 | 3 });
+      return `<h${level} id="${id}">${text}</h${level}>`;
+    }
+  );
+
+  return { html: processed, headings };
+}
+
+/** Estimate reading time (Japanese: ~500 chars/min) */
+function estimateReadingTime(htmlContent: string): number {
+  const plainText = htmlContent.replace(/<[^>]*>/g, "");
+  const charCount = plainText.length;
+  return Math.max(1, Math.round(charCount / 500));
+}
+
 async function parseArticle(category: string, filename: string): Promise<MediaArticle> {
   const filePath = path.join(CONTENT_DIR, category, filename);
   const fileContents = fs.readFileSync(filePath, "utf8");
   const { data, content } = matter(fileContents);
 
   const processed = await remark().use(html).process(content);
-  const contentHtml = processed.toString();
+  const rawHtml = processed.toString();
+  const { html: contentHtml, headings } = processHeadings(
+    rawHtml.replace(/<table/g, '<div class="table-wrapper"><table').replace(/<\/table>/g, '</table></div>')
+  );
+  const readingTime = estimateReadingTime(rawHtml);
 
   return {
     slug: filename.replace(/\.md$/, ""),
@@ -39,6 +86,8 @@ async function parseArticle(category: string, filename: string): Promise<MediaAr
     thumbnail: data.thumbnail,
     tags: data.tags || [],
     content: contentHtml,
+    headings,
+    readingTime,
   };
 }
 

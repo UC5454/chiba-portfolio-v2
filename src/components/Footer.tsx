@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { mediaCategories } from "@/data/mediaCategories";
 
 export default function Footer() {
   return (
@@ -12,6 +13,18 @@ export default function Footer() {
               <li><Link href="/quests" className="text-gray-400 hover:text-white transition-colors text-sm">QUESTS</Link></li>
               <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">NEWS</Link></li>
               <li><Link href="/media" className="text-gray-400 hover:text-white transition-colors text-sm">LIBRARY</Link></li>
+            </ul>
+          </div>
+          <div>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">LIBRARY</h4>
+            <ul className="space-y-2">
+              {mediaCategories.map((cat) => (
+                <li key={cat.slug}>
+                  <Link href={`/media/${cat.slug}`} className="text-gray-400 hover:text-white transition-colors text-sm">
+                    {cat.icon} {cat.name}
+                  </Link>
+                </li>
+              ))}
             </ul>
           </div>
           <div>

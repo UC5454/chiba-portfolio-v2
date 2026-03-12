@@ -29,8 +29,8 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
           type="button"
           className={`px-4 py-2 text-sm font-medium rounded-full border transition-colors ${
             activeFilter === ALL_FILTER
-              ? "bg-gray-900 text-white border-gray-900"
-              : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+              ? "bg-[#3e2723] text-white border-[#3e2723]"
+              : "bg-white text-[#5c3a21] border-[#5c3a21]/30 hover:border-[#5c3a21]/50"
           }`}
           onClick={() => setActiveFilter(ALL_FILTER)}
         >
@@ -43,7 +43,7 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
             className={`px-4 py-2 text-sm font-medium rounded-full border transition-colors ${
               activeFilter === cat.slug
                 ? "text-white border-transparent"
-                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
+                : "bg-white text-[#5c3a21] border-[#5c3a21]/30 hover:border-[#5c3a21]/50"
             }`}
             style={activeFilter === cat.slug ? { backgroundColor: cat.color, borderColor: cat.color } : undefined}
             onClick={() => setActiveFilter(cat.slug)}
@@ -66,7 +66,7 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
               <Link
                 key={`${article.category}/${article.slug}`}
                 href={`/media/${article.category}/${article.slug}`}
-                className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:shadow-lg transition-shadow group"
+                className="bg-white border-2 border-[#5c3a21]/15 rounded-xl overflow-hidden hover:border-[#5c3a21]/30 hover:shadow-lg transition-all group"
               >
                 {/* Thumbnail */}
                 <div className="w-full aspect-video bg-gray-100 relative overflow-hidden">

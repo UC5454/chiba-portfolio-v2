@@ -53,6 +53,13 @@ const ctaByCategory: Record<MediaCategory, CtaConfig> = {
     href: `mailto:${CONTACT_EMAIL}?subject=イベント・コミュニティについて`,
     accent: "#ec4899",
   },
+  tech: {
+    heading: "AI活用についてお気軽にご相談ください",
+    description: "CLAUDE.md設計・MCP構築・Claude Code活用など、技術的なご相談はお気軽にどうぞ。",
+    buttonText: "お問い合わせ",
+    href: `mailto:${CONTACT_EMAIL}?subject=技術的なご相談`,
+    accent: "#06b6d4",
+  },
 };
 
 export function getCtaForCategory(category: MediaCategory): CtaConfig {

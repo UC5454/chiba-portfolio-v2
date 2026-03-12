@@ -7,6 +7,7 @@ import AIEmployees from "@/components/AIEmployees";
 import Strengths from "@/components/Strengths";
 import Quests from "@/components/Quests";
 import Guilds from "@/components/Guilds";
+import Media from "@/components/Media";
 import CTA from "@/components/CTA";
 
 export function generateMetadata(): Metadata {
@@ -27,6 +28,7 @@ export default function Home() {
       <Strengths />
       <Quests />
       <Guilds />
+      <Media />
       <CTA />
     </main>
   );

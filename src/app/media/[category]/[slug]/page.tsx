@@ -6,6 +6,9 @@ import { getCategoryBySlug, mediaCategories } from "@/data/mediaCategories";
 import { getCtaForCategory } from "@/data/mediaCta";
 import { MediaArticle } from "@/types/media";
 import ArticleImage from "./ArticleImage";
+import TableOfContents from "./TableOfContents";
+import ShareButtons from "./ShareButtons";
+import ArticleScrollTracker from "./ArticleScrollTracker";
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -24,6 +27,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const article = await getArticleBySlug(category, slug);
   if (!article) return { title: "Not Found" };
 
+  const ogImage = `/api/og?title=${encodeURIComponent(article.title)}&category=${encodeURIComponent(category)}&description=${encodeURIComponent(article.description)}`;
+
   return {
     title: `${article.title} | 千葉勇志メディア`,
     description: article.description,
@@ -32,7 +37,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: article.description,
       type: "article",
       publishedTime: article.date,
-      ...(article.thumbnail && { images: [article.thumbnail] }),
+      images: article.thumbnail ? [article.thumbnail] : [ogImage],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.description,
+      images: article.thumbnail ? [article.thumbnail] : [ogImage],
     },
   };
 }
@@ -90,6 +101,7 @@ function getPortfolioLink(category: string): { label: string; href: string } | n
     "ai-business": { label: "実績・サービスを見る", href: "/#services" },
     education: { label: "登壇・研修実績を見る", href: "/#speaking" },
     events: { label: "コミュニティ活動を見る", href: "/#community" },
+    tech: { label: "技術への取り組みを見る", href: "/#ai-team" },
   };
   return map[category] || null;
 }
@@ -116,6 +128,8 @@ export default async function ArticlePage({ params }: PageProps) {
   // Portfolio link
   const portfolioLink = getPortfolioLink(category);
 
+  const BASE_URL = "https://chiba-portfolio.vercel.app";
+
   // Article JSON-LD
   const jsonLd = {
     "@context": "https://schema.org",
@@ -126,6 +140,7 @@ export default async function ArticlePage({ params }: PageProps) {
     ...(article.updatedAt && { dateModified: article.updatedAt }),
     author: {
       "@type": "Person",
+      "@id": "https://chiba-portfolio.vercel.app/#person",
       name: "千葉勇志",
       jobTitle: "代表取締役 / 取締役COO兼CAIO",
       url: "https://x.com/chibayuushi",
@@ -134,6 +149,19 @@ export default async function ArticlePage({ params }: PageProps) {
       "@type": "Organization",
       name: "株式会社SOU",
     },
+    mainEntityOfPage: `${BASE_URL}/media/${category}/${slug}`,
+  };
+
+  // BreadcrumbList JSON-LD
+  const breadcrumbJsonLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "トップ", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "メディア", item: `${BASE_URL}/media` },
+      { "@type": "ListItem", position: 3, name: catInfo?.name || category, item: `${BASE_URL}/media/${category}` },
+      { "@type": "ListItem", position: 4, name: article.title },
+    ],
   };
 
   return (
@@ -141,6 +169,16 @@ export default async function ArticlePage({ params }: PageProps) {
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbJsonLd) }}
+      />
+      <ArticleScrollTracker
+        articleTitle={article.title}
+        category={category}
+        wordCount={article.readingTime * 500}
+        readingTime={article.readingTime}
       />
       <div className="bg-white">
         <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
@@ -153,7 +191,7 @@ export default async function ArticlePage({ params }: PageProps) {
             <span className="text-gray-500 line-clamp-1 inline">{article.title}</span>
           </nav>
 
-          {/* Category badge + date */}
+          {/* Category badge + date + reading time */}
           <div className="flex flex-wrap items-center gap-3 mb-4">
             {catInfo && (
               <Link
@@ -165,6 +203,8 @@ export default async function ArticlePage({ params }: PageProps) {
               </Link>
             )}
             <span className="text-sm text-gray-400">{article.date}</span>
+            <span className="text-sm text-gray-300">·</span>
+            <span className="text-sm text-gray-400">{article.readingTime}分で読めます</span>
           </div>
 
           {/* Title */}
@@ -198,11 +238,34 @@ export default async function ArticlePage({ params }: PageProps) {
             </div>
           )}
 
+          {/* Table of Contents */}
+          <TableOfContents headings={article.headings} articleTitle={article.title} />
+
           {/* Body */}
           <div
             className="media-content"
             dangerouslySetInnerHTML={{ __html: article.content }}
           />
+
+          {/* Share buttons */}
+          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-gray-100 pt-6">
+            <ShareButtons
+              title={article.title}
+              url={`https://chiba-portfolio.vercel.app/media/${category}/${slug}`}
+            />
+            {article.tags.length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {article.tags.slice(0, 3).map((tag) => (
+                  <span
+                    key={tag}
+                    className="px-2 py-0.5 bg-gray-100 text-gray-500 text-xs rounded-full"
+                  >
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Internal link to portfolio */}
           {portfolioLink && (
@@ -265,6 +328,10 @@ export default async function ArticlePage({ params }: PageProps) {
               href={cta.href}
               className="inline-block bg-white font-bold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
               style={{ color: cta.accent }}
+              data-gtm-event="cta_click"
+              data-gtm-cta-text={cta.buttonText}
+              data-gtm-cta-position="article-bottom"
+              data-gtm-category={category}
             >
               {cta.buttonText} →
             </a>
