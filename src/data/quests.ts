@@ -1,6 +1,6 @@
 export interface Quest {
   id: string;
-  status: "COMPLETED" | "ONGOING";
+  status: "たっせい" | "しんこうちゅう";
   statusColor: string;
   year: string;
   title: string;
@@ -13,7 +13,7 @@ export interface Quest {
 export const quests: Quest[] = [
   {
     id: "ai-implementation-support",
-    status: "COMPLETED",
+    status: "たっせい",
     statusColor: "text-gold-retro border-gold-retro",
     year: "2025",
     title: "AI導入支援プロジェクト",
@@ -29,7 +29,7 @@ export const quests: Quest[] = [
   },
   {
     id: "tohoku-tech-community",
-    status: "COMPLETED",
+    status: "たっせい",
     statusColor: "text-gold-retro border-gold-retro",
     year: "2024",
     title: "東北Techコミュニティ設立",
@@ -45,7 +45,7 @@ export const quests: Quest[] = [
   },
   {
     id: "autonomous-ai-employee-platform",
-    status: "ONGOING",
+    status: "しんこうちゅう",
     statusColor: "text-green-400 border-green-400",
     year: "2026",
     title: "自律型AI社員プラットフォーム",

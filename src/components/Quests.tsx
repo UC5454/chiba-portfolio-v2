@@ -11,7 +11,7 @@ export default function Quests() {
       <div className="container mx-auto px-4 relative z-10">
         <div className="flex justify-center mb-12">
           <h2 className="text-white font-[family-name:var(--font-pixel)] text-base sm:text-xl bg-black/50 px-6 py-2 rounded">
-            クエスト履歴 (Quests)
+            クエスト履歴
           </h2>
         </div>
 
@@ -31,7 +31,7 @@ export default function Quests() {
                   sizes="(max-width: 768px) 100vw, 33vw"
                   className="object-cover opacity-25"
                 />
-                <span className="relative z-10 text-gray-500 font-[family-name:var(--font-pixel)] text-xs">IMAGE</span>
+                <span className="relative z-10 text-gray-500 font-[family-name:var(--font-pixel)] text-xs">クエスト</span>
               </div>
               <div className="p-4">
                 <div className="flex justify-between items-center mb-2">

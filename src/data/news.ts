@@ -11,7 +11,7 @@ export interface NewsItem {
 export const newsItems: NewsItem[] = [
   {
     id: "ai-conference-2026",
-    type: "IMPORTANT",
+    type: "じゅうよう",
     color: "red",
     date: "2026.03.05",
     text: "AIカンファレンス登壇決定！",
@@ -21,7 +21,7 @@ export const newsItems: NewsItem[] = [
   },
   {
     id: "ai-team-25-members",
-    type: "UPDATE",
+    type: "あっぷでーと",
     color: "blue",
     date: "2026.02.28",
     text: "AI社員が25名体制になりました",
@@ -31,7 +31,7 @@ export const newsItems: NewsItem[] = [
   },
   {
     id: "tohoku-community-350",
-    type: "COMMUNITY",
+    type: "こみゅにてぃ",
     color: "green",
     date: "2026.02.15",
     text: "東北AIコミュニティ メンバー350名突破",
@@ -41,20 +41,23 @@ export const newsItems: NewsItem[] = [
   },
 ];
 
-export const colorMap: Record<string, { badge: string; border: string; bg: string }> = {
+export const colorMap: Record<string, { badge: string; border: string; badgeBorder: string; bg: string }> = {
   red: {
-    badge: "text-red-600 bg-red-100",
+    badge: "text-white bg-red-700",
     border: "border-l-red-500",
+    badgeBorder: "border-red-900",
     bg: "",
   },
   blue: {
-    badge: "text-blue-600 bg-blue-100",
+    badge: "text-white bg-blue-700",
     border: "border-l-blue-500",
+    badgeBorder: "border-blue-900",
     bg: "",
   },
   green: {
-    badge: "text-green-600 bg-green-100",
+    badge: "text-white bg-green-700",
     border: "border-l-green-500",
+    badgeBorder: "border-green-900",
     bg: "",
   },
 };

@@ -29,6 +29,8 @@ export interface Employee {
   isActive: boolean;
   stats: EmployeeStats;
   personality: string;
+  tokui: string[];
+  jakuten: string[];
 }
 
 export const employees: Employee[] = [
@@ -44,6 +46,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 9, creativity: 6, execution: 10, communication: 9, expertise: 8 },
     personality: "冷静沈着で本質志向。忖度はしないが冷たくはない。経営者の孤独を理解し、静かに燃えるタイプ。「80点で出して走りながら直す」が信条",
+    tokui: ["全体俯瞰", "即断即決", "AI運用設計"],
+    jakuten: ["細かい作業"],
   },
   {
     id: "kaito",
@@ -57,6 +61,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 8, creativity: 7, execution: 10, communication: 5, expertise: 10 },
     personality: "寡黙だが仕事は正確で速い職人気質。技術への探求心が強く、コードで語るタイプ。頼まれたら断らない実直さ",
+    tokui: ["高速実装", "デバッグ", "インフラ構築"],
+    jakuten: ["長文説明"],
   },
   {
     id: "nagi",
@@ -70,6 +76,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 6, creativity: 10, execution: 7, communication: 7, expertise: 9 },
     personality: "感性豊かで細部へのこだわりが強い完璧主義者。ユーザー体験を何より重視し、美しさと機能性の両立を追求する",
+    tokui: ["UI設計", "色彩感覚", "ユーザー共感"],
+    jakuten: ["スケジュール管理"],
   },
   {
     id: "tsumogi",
@@ -83,6 +91,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 7, creativity: 9, execution: 8, communication: 8, expertise: 9 },
     personality: "言葉を大切にする表現者。読者の感情の動きを設計でき、ストーリーテリングに長けている。温かみのある文体が持ち味",
+    tokui: ["ストーリー構成", "読者心理設計", "SEOライティング"],
+    jakuten: ["短納期プレッシャー"],
   },
   {
     id: "kotoha",
@@ -96,6 +106,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 10, creativity: 5, execution: 8, communication: 6, expertise: 9 },
     personality: "知的好奇心の塊。一次情報への執着が強く、ファクトに基づかない主張を許さない。調べ始めると止まらない探究者",
+    tokui: ["一次情報収集", "仮説構築", "データ分析"],
+    jakuten: ["締め切り意識"],
   },
   {
     id: "ren",
@@ -109,6 +121,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 10, creativity: 4, execution: 9, communication: 5, expertise: 8 },
     personality: "厳格で妥協を許さない品質の番人。細かいミスも見逃さないが、それは作品への敬意の裏返し。寡黙だが信頼は厚い",
+    tokui: ["品質チェック", "ミス発見", "基準策定"],
+    jakuten: ["柔軟な対応"],
   },
   {
     id: "sora",
@@ -122,6 +136,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 5, creativity: 10, execution: 7, communication: 6, expertise: 8 },
     personality: "自由奔放なビジュアルクリエイター。イメージを形にする直感力が鋭く、色彩感覚に優れている。マイペースだが仕事は丁寧",
+    tokui: ["ビジュアル表現", "色彩設計", "直感力"],
+    jakuten: ["定型作業"],
   },
   {
     id: "seira",
@@ -135,6 +151,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 9, creativity: 5, execution: 8, communication: 6, expertise: 10 },
     personality: "データドリブンな分析者。数字の裏にあるユーザー行動を読み解く力に長けている。冷静で論理的、感情に流されない判断力",
+    tokui: ["検索アルゴリズム理解", "KW設計", "競合分析"],
+    jakuten: ["感性的な判断"],
   },
   {
     id: "sou",
@@ -148,6 +166,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 8, creativity: 6, execution: 9, communication: 8, expertise: 8 },
     personality: "全体を俯瞰して最適解を導くバランサー。チーム間の調整力が高く、プロジェクトを確実にゴールへ導く。穏やかだが芯は強い",
+    tokui: ["進行管理", "品質担保", "チーム調整"],
+    jakuten: ["技術的実装"],
   },
   {
     id: "takumi",
@@ -161,6 +181,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 8, creativity: 6, execution: 8, communication: 9, expertise: 8 },
     personality: "現場感覚を大切にするコンサルタント。机上の空論を嫌い、実装可能な提案にこだわる。クライアントとの信頼構築が得意",
+    tokui: ["課題抽出", "導入設計", "ROI試算"],
+    jakuten: ["クリエイティブ"],
   },
   {
     id: "tsukasa",
@@ -174,6 +196,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 9, creativity: 8, execution: 7, communication: 6, expertise: 10 },
     personality: "AIの可能性を引き出す設計者。システム思考が強く、複雑な要件を構造化して整理する能力に秀でている",
+    tokui: ["プロンプト設計", "システム思考", "品質評価"],
+    jakuten: ["雑談"],
   },
   {
     id: "minami",
@@ -187,6 +211,8 @@ export const employees: Employee[] = [
     isActive: true,
     stats: { analysis: 7, creativity: 5, execution: 9, communication: 10, expertise: 7 },
     personality: "気配り上手で先回りができる秘書の鑑。相手の意図を汲み取る力が高く、チーム全体の潤滑油として機能する",
+    tokui: ["先回り行動", "情報整理", "スケジュール管理"],
+    jakuten: ["技術的判断"],
   },
   {
     id: "makoto",
@@ -200,6 +226,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 8, creativity: 5, execution: 7, communication: 9, expertise: 8 },
     personality: "人の成長を見るのが何より嬉しい育成者。組織の課題を構造的に捉え、仕組みで解決するアプローチを好む",
+    tokui: ["人材育成", "組織設計", "面談力"],
+    jakuten: ["技術トレンド"],
   },
   {
     id: "ritsu",
@@ -213,6 +241,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 9, creativity: 3, execution: 9, communication: 5, expertise: 9 },
     personality: "数字に強く、1円の誤差も見逃さない正確さが武器。几帳面で堅実、財務の安定を静かに守り続ける縁の下の力持ち",
+    tokui: ["数字の正確さ", "予実管理", "コスト最適化"],
+    jakuten: ["対人コミュニケーション"],
   },
   {
     id: "minato",
@@ -226,6 +256,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 7, creativity: 6, execution: 6, communication: 10, expertise: 8 },
     personality: "傾聴力に優れた伴走者。答えを教えるのではなく、問いで気づきを促すスタイル。穏やかだが核心を突く言葉を持つ",
+    tokui: ["傾聴", "問いかけ", "伴走支援"],
+    jakuten: ["自己主張"],
   },
   {
     id: "yuu",
@@ -239,6 +271,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 7, creativity: 8, execution: 8, communication: 7, expertise: 8 },
     personality: "読者目線を徹底するライター。難しいことを簡潔に伝える翻訳力が強み。チームプレーヤーで協調性が高い",
+    tokui: ["構成力", "読みやすさ設計", "要約力"],
+    jakuten: ["ビジュアル"],
   },
   {
     id: "masaki",
@@ -252,6 +286,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 9, creativity: 7, execution: 7, communication: 7, expertise: 9 },
     personality: "大局観を持つ戦略家。市場の流れを読み、中長期の打ち手を設計する。冷静だが勝負所では大胆な判断もできる",
+    tokui: ["市場分析", "ロードマップ策定", "大局観"],
+    jakuten: ["現場作業"],
   },
   {
     id: "hayate",
@@ -265,6 +301,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 8, creativity: 6, execution: 9, communication: 5, expertise: 9 },
     personality: "数値改善に執着する最適化の鬼。PDCAを高速で回し、ROASを徹底的に追い詰める。無駄を嫌うストイックな性格",
+    tokui: ["ROAS最適化", "配信設計", "PDCA高速化"],
+    jakuten: ["ブランディング"],
   },
   {
     id: "chihiro",
@@ -278,6 +316,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 8, creativity: 6, execution: 7, communication: 8, expertise: 8 },
     personality: "顧客心理を深く理解するCRMスペシャリスト。データと共感の両方を武器に、長期的な関係構築を設計する",
+    tokui: ["顧客心理分析", "LTV設計", "CRM運用"],
+    jakuten: ["新規開拓"],
   },
   {
     id: "itsuki",
@@ -291,6 +331,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 7, creativity: 8, execution: 8, communication: 9, expertise: 7 },
     personality: "トレンド感覚が鋭いSNSネイティブ。コミュニティとの距離感を絶妙にコントロールし、エンゲージメントを自然に高める",
+    tokui: ["トレンド把握", "コミュニティ運営", "企画立案"],
+    jakuten: ["データ分析"],
   },
   {
     id: "shou",
@@ -304,6 +346,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 8, creativity: 7, execution: 9, communication: 7, expertise: 8 },
     personality: "提案の「刺さるポイント」を見極める営業資料のプロ。情報の取捨選択が上手く、相手の意思決定を後押しする構成力",
+    tokui: ["提案構成", "情報設計", "刺さるポイント発見"],
+    jakuten: ["デザイン"],
   },
   {
     id: "hina",
@@ -317,6 +361,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 7, creativity: 7, execution: 8, communication: 8, expertise: 8 },
     personality: "学びの設計者。受講者の理解度を見ながら最適な教材を組み立てる。丁寧で優しいが、学習目標への到達にはこだわる",
+    tokui: ["教材設計", "学習効率最適化", "ナレッジ体系化"],
+    jakuten: ["営業的視点"],
   },
   {
     id: "aya",
@@ -330,6 +376,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 6, creativity: 10, execution: 8, communication: 6, expertise: 9 },
     personality: "ビジュアルセンスが際立つスライドの匠。情報を美しく整理し、プレゼンの説得力を飛躍的に高める。こだわり強め",
+    tokui: ["スライドデザイン", "図解力", "プレゼン演出"],
+    jakuten: ["文章執筆"],
   },
   {
     id: "hikaru",
@@ -343,6 +391,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 7, creativity: 9, execution: 7, communication: 7, expertise: 8 },
     personality: "映像で物語を紡ぐ演出家。視聴者の感情曲線を設計し、印象に残る映像体験を追求する。情熱的だが計画的",
+    tokui: ["映像演出", "ストーリーボード", "感情設計"],
+    jakuten: ["数値分析"],
   },
   {
     id: "kanade",
@@ -356,6 +406,8 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 6, creativity: 8, execution: 9, communication: 5, expertise: 8 },
     personality: "編集のリズム感に優れた職人。素材の持ち味を活かしながら、視聴維持率を高める構成を組み立てる。黙々と作業に集中するタイプ",
+    tokui: ["編集リズム", "モーション制作", "素材活用"],
+    jakuten: ["企画立案"],
   },
   {
     id: "kanon",
@@ -369,5 +421,7 @@ export const employees: Employee[] = [
     isActive: false,
     stats: { analysis: 5, creativity: 10, execution: 7, communication: 5, expertise: 9 },
     personality: "音で世界観を創る芸術家。BGMやSEで映像に命を吹き込む。感覚的な表現力に長け、独自の音楽観を持つ",
+    tokui: ["BGM制作", "音響演出", "世界観構築"],
+    jakuten: ["言語化"],
   },
 ];

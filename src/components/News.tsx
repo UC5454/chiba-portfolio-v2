@@ -14,7 +14,7 @@ export default function News() {
 
             <div className="flex justify-center mb-6">
               <h3 className="text-xl sm:text-2xl font-bold text-[#3e2723] font-[family-name:var(--font-pixel)] bg-[#deb887] px-4 py-1 border-2 border-[#5c3a21] shadow-sm transform -rotate-1">
-                旅の掲示板 (News)
+                旅の掲示板
               </h3>
             </div>
 
@@ -28,12 +28,12 @@ export default function News() {
                       className={`bg-[#fdf5e6] p-4 text-gray-900 border-l-4 ${colors.border} shadow-sm flex flex-col md:flex-row gap-2 md:items-center transform hover:-translate-y-1 transition-transform block`}
                     >
                       <span
-                        className={`font-bold font-[family-name:var(--font-pixel)] text-[10px] ${colors.badge} px-2 py-1 rounded`}
+                        className={`font-bold text-xs ${colors.badge} px-3 py-1.5 rounded-sm border-2 ${colors.badgeBorder}`}
                       >
                         {item.type}
                       </span>
                       <span className="text-sm font-bold text-gray-500">{item.date}</span>
-                      <span className="font-bold">{item.text}</span>
+                      <span className="text-base font-extrabold">{item.text}</span>
                     </Link>
                   </li>
                 );

@@ -51,6 +51,11 @@
   100% { opacity: 0; }
 }
 
+@keyframes flashOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
 /* Retro Scrollbar */
 ::-webkit-scrollbar {
   width: 12px;

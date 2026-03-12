@@ -1,102 +1,105 @@
+import Link from "next/link";
+
 const locations = [
   {
-    label: "CURRENT JOB",
-    title: "COO・CAIO・顧問",
-    subtitle: "Multiple Roles",
-    color: "bg-gold-retro",
-    hoverBorder: "hover:border-gold-retro",
-    icon: (
-      <path
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-      />
-    ),
+    label: "しごと",
+    title: "マルチロール",
+    subtitle: "COO・CAIO・顧問",
+    icon: "⚔",
   },
   {
-    label: "PARTY SIZE",
-    title: "25 AI Employees",
-    subtitle: "Active Units",
-    color: "bg-green-grass",
-    hoverBorder: "hover:border-green-grass",
-    icon: (
-      <path
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-        d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"
-      />
-    ),
+    label: "なかま",
+    title: "25名",
+    subtitle: "AI社員チーム",
+    icon: "👥",
   },
   {
-    label: "GUILD",
-    title: "350+ Community",
-    subtitle: "Tohoku Region",
-    color: "bg-blue-sky",
-    hoverBorder: "hover:border-blue-sky",
-    icon: (
-      <path
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-        d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-      />
-    ),
+    label: "ギルド",
+    title: "350名超",
+    subtitle: "東北AIコミュニティ",
+    icon: "🏰",
   },
   {
-    label: "FAME",
-    title: "50+ Speaking",
-    subtitle: "Events & Seminars",
-    color: "bg-red-500",
-    hoverBorder: "hover:border-red-500",
-    icon: (
-      <path
-        strokeLinecap="square"
-        strokeLinejoin="miter"
-        d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
-      />
-    ),
+    label: "めいせい",
+    title: "50回以上",
+    subtitle: "登壇・セミナー",
+    icon: "🏆",
   },
 ];
 
 export default function Status() {
   return (
     <section id="status" className="py-20 bg-navy-deep relative overflow-hidden">
-      {/* Dashed Connector */}
-      <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 border-t-4 border-dashed border-white/20 -translate-y-1/2 z-0" />
-
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-center text-gold-retro font-[family-name:var(--font-pixel)] text-base sm:text-xl mb-12">
-          STATUS / LOCATIONS
+          ステータス
         </h2>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8">
-          {locations.map((loc, i) => (
+        {/* Profile header */}
+        <div className="max-w-3xl mx-auto mb-10 bg-navy-light/60 border-2 border-gold-retro/40 p-4 sm:p-6">
+          <div className="flex items-center gap-4 mb-4">
+            <div className="w-16 h-16 bg-gold-retro/20 border-2 border-gold-retro flex items-center justify-center text-3xl">
+              &#x1F451;
+            </div>
+            <div>
+              <p className="font-[family-name:var(--font-pixel)] text-gold-retro text-sm sm:text-base">
+                ちば ゆうし
+              </p>
+              <p className="text-gray-300 text-xs sm:text-sm">
+                AIストラテジスト / 体験主義の冒険者
+              </p>
+            </div>
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 text-center">
+            <div className="bg-navy-deep/60 border border-white/10 p-2">
+              <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] mb-1">レベル</p>
+              <p className="text-white font-bold text-lg">??</p>
+            </div>
+            <div className="bg-navy-deep/60 border border-white/10 p-2">
+              <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] mb-1">せいちょうりつ</p>
+              <p className="text-white font-bold text-lg">300%</p>
+            </div>
+            <div className="bg-navy-deep/60 border border-white/10 p-2">
+              <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] mb-1">さくげん</p>
+              <p className="text-white font-bold text-lg">1,714h</p>
+            </div>
+            <div className="bg-navy-deep/60 border border-white/10 p-2">
+              <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] mb-1">きょてん</p>
+              <p className="text-white font-bold text-lg">仙台</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Stat cards */}
+        <div className="max-w-3xl mx-auto grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {locations.map((stat, i) => (
             <div
               key={i}
-              className={`group flex flex-col items-center bg-navy-light/80 p-5 md:p-6 border-2 border-white/20 ${loc.hoverBorder} transition-colors backdrop-blur-sm relative`}
+              className="bg-navy-light/80 border-2 border-gold-retro/30 hover:border-gold-retro transition-colors p-4 flex items-start gap-4 hover:-translate-y-1 hover:animate-pulse"
             >
-              <div
-                className={`w-12 h-12 md:w-16 md:h-16 ${loc.color} rounded-none flex items-center justify-center mb-4 shadow-pixel group-hover:animate-bounce`}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6 md:h-8 md:w-8 text-black"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  {loc.icon}
-                </svg>
+              <div className="w-14 h-14 bg-gold-retro/20 border-2 border-gold-retro/60 flex items-center justify-center text-2xl flex-shrink-0">
+                {stat.icon}
               </div>
-              <div className="text-center">
-                <p className="text-gray-400 text-[9px] md:text-xs font-[family-name:var(--font-pixel)] mb-1">
-                  {loc.label}
+              <div className="flex-1 min-w-0">
+                <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-xs mb-1">
+                  {stat.label}
                 </p>
-                <h3 className="text-sm sm:text-base md:text-lg font-bold mb-1">{loc.title}</h3>
-                <p className="text-xs sm:text-sm text-gray-300">{loc.subtitle}</p>
+                <p className="text-white font-bold text-2xl mb-0.5">{stat.title}</p>
+                <p className="text-gray-300 text-xs">{stat.subtitle}</p>
               </div>
             </div>
           ))}
+        </div>
+
+        {/* "More" button */}
+        <div className="text-center mt-8">
+          <Link
+            href="/about"
+            className="inline-block bg-gold-retro/20 hover:bg-gold-retro/30 border-2 border-gold-retro text-gold-retro font-[family-name:var(--font-pixel)] text-xs px-6 py-3 transition-colors"
+          >
+            ▶ もっと知る
+          </Link>
         </div>
       </div>
     </section>

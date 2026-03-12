@@ -7,16 +7,17 @@ export default function Footer() {
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mb-8">
           <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">MENU</h4>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">メニュー</h4>
             <ul className="space-y-2">
-              <li><Link href="/" className="text-gray-400 hover:text-white transition-colors text-sm">HOME</Link></li>
-              <li><Link href="/quests" className="text-gray-400 hover:text-white transition-colors text-sm">QUESTS</Link></li>
-              <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">NEWS</Link></li>
-              <li><Link href="/media" className="text-gray-400 hover:text-white transition-colors text-sm">LIBRARY</Link></li>
+              <li><Link href="/" className="text-gray-400 hover:text-white transition-colors text-sm">ホーム</Link></li>
+              <li><Link href="/about" className="text-gray-400 hover:text-white transition-colors text-sm">しょうかい</Link></li>
+              <li><Link href="/quests" className="text-gray-400 hover:text-white transition-colors text-sm">クエスト</Link></li>
+              <li><Link href="/news" className="text-gray-400 hover:text-white transition-colors text-sm">おしらせ</Link></li>
+              <li><Link href="/media" className="text-gray-400 hover:text-white transition-colors text-sm">コラム</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">LIBRARY</h4>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">コラム</h4>
             <ul className="space-y-2">
               {mediaCategories.map((cat) => (
                 <li key={cat.slug}>
@@ -28,39 +29,39 @@ export default function Footer() {
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">TEAM</h4>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">チーム</h4>
             <ul className="space-y-2">
-              <li><Link href="/employees" className="text-gray-400 hover:text-white transition-colors text-sm">AI EMPLOYEES</Link></li>
-              <li><Link href="/guilds" className="text-gray-400 hover:text-white transition-colors text-sm">GUILDS</Link></li>
+              <li><Link href="/employees" className="text-gray-400 hover:text-white transition-colors text-sm">パーティ</Link></li>
+              <li><Link href="/guilds" className="text-gray-400 hover:text-white transition-colors text-sm">ギルド</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">CONTACT</h4>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">おといあわせ</h4>
             <ul className="space-y-2">
-              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">CONTACT</Link></li>
+              <li><Link href="/contact" className="text-gray-400 hover:text-white transition-colors text-sm">おといあわせ</Link></li>
             </ul>
           </div>
           <div>
-            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">SOCIAL</h4>
+            <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">つながり</h4>
             <ul className="space-y-2">
               <li>
                 <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  X (Twitter) ↗
+                  エックス ↗
                 </a>
               </li>
               <li>
                 <a href="https://note.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  Note ↗
+                  ノート ↗
                 </a>
               </li>
               <li>
                 <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  LinkedIn ↗
+                  リンクトイン ↗
                 </a>
               </li>
               <li>
                 <a href="https://github.com/UC5454" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  GitHub ↗
+                  ギットハブ ↗
                 </a>
               </li>
             </ul>
@@ -68,7 +69,7 @@ export default function Footer() {
         </div>
         <div className="border-t border-gray-800 pt-4 text-center">
           <div className="text-gray-500 font-[family-name:var(--font-pixel)] text-[10px]">
-            &copy; 2026 Yushi Chiba. All Rights Reserved.
+            &copy; 2026 千葉勇志. All Rights Reserved.
           </div>
         </div>
       </div>

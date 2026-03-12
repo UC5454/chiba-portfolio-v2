@@ -32,14 +32,14 @@ export default function Strengths() {
       <div className="absolute inset-0 bg-wood-dark/70" />
       <div className="container mx-auto px-4 relative z-10">
         <h2 className="text-center text-[#deb887] font-[family-name:var(--font-pixel)] text-base sm:text-xl mb-12 drop-shadow-md">
-          冒険の書 (Strengths)
+          冒険の書
         </h2>
 
         <div className="flex flex-wrap justify-center gap-6">
           {strengths.map((s, i) => (
             <div
               key={i}
-              className={`w-full md:w-80 bg-[#fdf5e6] text-gray-800 p-6 shadow-lg transform ${s.rotate} hover:rotate-0 transition-transform duration-300 relative`}
+              className={`w-full md:w-80 bg-[#fdf5e6] text-gray-800 p-6 shadow-lg transform ${s.rotate} hover:rotate-0 transition-transform duration-300 relative hover:shadow-[0_0_20px_rgba(255,100,0,0.5),0_0_40px_rgba(255,50,0,0.3)] transition-shadow duration-500`}
             >
               {/* Tape effect */}
               <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-4 h-16 bg-red-800/20 rotate-90 rounded" />

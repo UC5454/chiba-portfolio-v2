@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Image from "next/image";
 import { notFound } from "next/navigation";
+import Link from "next/link";
 
 import PageContainer from "@/components/PageContainer";
 import StatsRadar from "@/components/StatsRadar";
@@ -11,17 +12,17 @@ interface EmployeeDetailPageProps {
 }
 
 const teamNameMap: Record<string, string> = {
-  executive: "直轄",
-  "note-team": "note-team",
-  "web-team": "web-team",
-  "ai-consulting-team": "ai-consulting",
-  "creative-team": "creative-team",
-  "slides-team": "slides-team",
-  "marketing-team": "marketing-team",
-  coach: "coach",
-  secretary: "secretary",
-  hr: "hr",
-  accounting: "accounting",
+  executive: "ちょっかつ",
+  "note-team": "ノート",
+  "web-team": "ウェブ",
+  "ai-consulting-team": "AIコンサル",
+  "creative-team": "クリエイティブ",
+  "slides-team": "スライド",
+  "marketing-team": "マーケ",
+  coach: "コーチ",
+  secretary: "ひしょ",
+  hr: "じんじ",
+  accounting: "けいり",
 };
 
 export function generateStaticParams() {
@@ -34,13 +35,13 @@ export async function generateMetadata({ params }: EmployeeDetailPageProps): Pro
 
   if (!member) {
     return {
-      title: "AI社員が見つかりません | 千葉勇志 / Yushi Chiba",
+      title: "AI社員が見つかりません | 千葉勇志",
       description: "指定されたAI社員情報は存在しません。",
     };
   }
 
   return {
-    title: `${member.name}（${member.role}） | AI社員 | 千葉勇志 / Yushi Chiba`,
+    title: `${member.name}（${member.role}） | AI社員 | 千葉勇志`,
     description: `${member.role}として活躍する${member.name}の詳細プロフィール。`,
   };
 }
@@ -58,6 +59,11 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
       title="AI社員詳細"
       breadcrumb={[{ label: "AI社員一覧", href: "/employees" }, { label: member.name }]}
     >
+      <div className="max-w-4xl mx-auto mb-4">
+        <Link href="/employees" className="inline-flex items-center gap-1 text-gold-retro hover:text-white text-sm mb-4 transition-colors">
+          ← パーティ一覧にもどる
+        </Link>
+      </div>
       <div className="max-w-4xl mx-auto bg-navy-light border-2 border-white/20 shadow-pixel p-4 md:p-8">
         <div className="grid grid-cols-1 md:grid-cols-[220px_1fr] gap-6 items-start">
           <div className="w-[200px] h-[200px] mx-auto bg-navy-deep border-2 border-gold-retro/60 overflow-hidden">
@@ -75,7 +81,7 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
               {member.name}
             </h2>
             <p className={`text-base font-bold mb-1 ${member.color}`}>{member.role}</p>
-            <p className="text-sm text-gray-300 mb-4">TEAM: {teamNameMap[member.team]}</p>
+            <p className="text-sm text-gray-300 mb-4">チーム: {teamNameMap[member.team]}</p>
 
             <div className="bg-navy-deep/70 border border-white/20 p-4 mb-4">
               <p className="text-sm leading-relaxed">{member.description}</p>
@@ -97,7 +103,7 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
         {/* Stats Radar Chart */}
         <div className="mt-8 bg-navy-deep/50 border border-gold-retro/30 p-4">
           <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-4 text-center">
-            STATUS
+            ステータス
           </h3>
           <div className="max-w-[320px] mx-auto">
             <StatsRadar stats={member.stats} />
@@ -107,9 +113,29 @@ export default async function EmployeeDetailPage({ params }: EmployeeDetailPageP
         {/* Personality */}
         <div className="mt-4 bg-navy-deep/50 border border-gold-retro/30 p-4">
           <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-3">
-            PERSONALITY
+            せいかく
           </h3>
           <p className="text-sm leading-relaxed text-gray-200">{member.personality}</p>
+        </div>
+
+        {/* とくぎ */}
+        <div className="mt-4 bg-navy-deep/50 border border-green-500/30 p-4">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-green-400 mb-3">とくぎ</h3>
+          <ul className="space-y-1">
+            {member.tokui.map((skill) => (
+              <li key={skill} className="text-sm text-green-300">▶ {skill}</li>
+            ))}
+          </ul>
+        </div>
+
+        {/* じゃくてん */}
+        <div className="mt-4 bg-navy-deep/50 border border-red-500/30 p-4">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-red-400 mb-3">じゃくてん</h3>
+          <ul className="space-y-1">
+            {member.jakuten.map((weak) => (
+              <li key={weak} className="text-sm text-red-300">▶ {weak}</li>
+            ))}
+          </ul>
         </div>
       </div>
     </PageContainer>

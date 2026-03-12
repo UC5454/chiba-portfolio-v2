@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 type NavItem = {
   href: string;
@@ -15,7 +16,9 @@ const homeNavItems: NavItem[] = [
   { href: "#party", label: "パーティ" },
   { href: "#strengths", label: "つよさ" },
   { href: "#quests", label: "クエスト" },
-  { href: "#contact", label: "はなす" },
+  { href: "/media", label: "コラム" },
+  { href: "/about", label: "しょうかい" },
+  { href: "/contact", label: "はなす" },
 ];
 
 const subpageNavItems: NavItem[] = [
@@ -24,13 +27,16 @@ const subpageNavItems: NavItem[] = [
   { href: "/employees", label: "パーティ" },
   { href: "/quests", label: "クエスト" },
   { href: "/guilds", label: "ギルド" },
-  { href: "/media", label: "メディア" },
+  { href: "/media", label: "コラム" },
+  { href: "/about", label: "しょうかい" },
   { href: "/contact", label: "はなす" },
 ];
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false);
   const [currentHash, setCurrentHash] = useState("");
+  const [menuAnimating, setMenuAnimating] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const isHome = pathname === "/";
   const navItems = isHome ? homeNavItems : subpageNavItems;
@@ -49,7 +55,8 @@ export default function Header() {
 
   const isActiveNavItem = (href: string) => {
     if (isHome) {
-      return href.startsWith("#") && currentHash === href;
+      if (href.startsWith("#")) return currentHash === href;
+      return pathname === href;
     }
     if (href === "/") {
       return pathname === "/";
@@ -57,12 +64,28 @@ export default function Header() {
     return pathname.startsWith(href);
   };
 
+  const toggleMenu = () => {
+    if (!isOpen) {
+      setIsOpen(true);
+      setMenuAnimating(true);
+    } else {
+      setMenuAnimating(false);
+      setTimeout(() => setIsOpen(false), 300);
+    }
+  };
+
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-navy-deep/90 backdrop-blur-sm border-b-2 border-white/20">
       <div className="container mx-auto px-4 py-3 flex justify-between items-center">
         <Link href="/" className="flex items-center gap-2">
-          <div className="w-3 h-3 bg-gold-retro animate-pulse" />
-          <h1 className="text-lg md:text-xl font-bold tracking-widest text-gold-retro">Yushi Chiba</h1>
+          <Image
+            src="/images/logo-A-retro-game.png"
+            alt="千葉勇志"
+            width={144}
+            height={36}
+            className="h-7 md:h-9 w-auto"
+            priority
+          />
         </Link>
 
         <nav className="hidden md:flex gap-6 text-sm">
@@ -77,42 +100,87 @@ export default function Header() {
           ))}
         </nav>
 
+        {/* Mobile hamburger - RPG style */}
         <button
-          className="md:hidden text-gold-retro"
-          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-gold-retro relative flex items-center justify-center border-2 border-gold-retro/60 hover:border-gold-retro transition-all pixel-border px-3 py-2"
+          onClick={toggleMenu}
           aria-label="メニュー"
         >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            fill="none"
-            viewBox="0 0 24 24"
-            strokeWidth={2}
-            stroke="currentColor"
-            className="w-6 h-6"
-          >
-            {isOpen ? (
-              <path strokeLinecap="square" strokeLinejoin="miter" d="M6 18L18 6M6 6l12 12" />
-            ) : (
-              <path strokeLinecap="square" strokeLinejoin="miter" d="M3 12h18M3 6h18M3 18h18" />
-            )}
-          </svg>
+          <span className="font-[family-name:var(--font-pixel)] text-[10px] leading-none">
+            {isOpen ? "✕ とじる" : "▶ メニュー"}
+          </span>
         </button>
       </div>
 
+      {/* Mobile menu - RPG slide-down */}
       {isOpen && (
-        <nav className="md:hidden bg-navy-deep border-t border-white/10 px-4 py-4 flex flex-col gap-3 text-sm">
-          {navItems.map((item) => (
+        <nav
+          ref={menuRef}
+          className={`md:hidden bg-black/95 border-t-2 border-gold-retro/30 px-4 py-2 flex flex-col shadow-pixel transition-all duration-300 origin-top ${
+            menuAnimating ? "animate-rpg-menu-open" : "animate-rpg-menu-close"
+          }`}
+        >
+          <div className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro/60 mb-2 tracking-widest">
+            ── コマンド ──
+          </div>
+          {navItems.map((item, idx) => (
             <Link
               key={item.href}
               href={item.href}
-              className={`hover:text-gold-retro transition-colors py-1 ${isActiveNavItem(item.href) ? "text-gold-retro" : ""}`}
-              onClick={() => setIsOpen(false)}
+              className={`hover:text-gold-retro hover:bg-white/5 transition-all py-2.5 px-3 border-l-2 border-transparent hover:border-gold-retro font-[family-name:var(--font-pixel)] text-xs ${
+                isActiveNavItem(item.href) ? "text-gold-retro border-gold-retro" : "text-white/80"
+              }`}
+              onClick={() => {
+                setMenuAnimating(false);
+                setTimeout(() => setIsOpen(false), 150);
+              }}
+              style={{ animationDelay: `${idx * 50}ms` }}
             >
-              [ {item.label} ]
+              <span className="text-gold-retro/70 mr-2">▶</span>
+              {item.label}
             </Link>
           ))}
+          <div className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro/30 mt-2 mb-1 tracking-widest text-right">
+            ──────────
+          </div>
         </nav>
       )}
+
+      <style jsx>{`
+        @keyframes rpg-menu-open {
+          0% {
+            opacity: 0;
+            transform: scaleY(0);
+            max-height: 0;
+          }
+          50% {
+            opacity: 0.8;
+          }
+          100% {
+            opacity: 1;
+            transform: scaleY(1);
+            max-height: 600px;
+          }
+        }
+        @keyframes rpg-menu-close {
+          0% {
+            opacity: 1;
+            transform: scaleY(1);
+            max-height: 600px;
+          }
+          100% {
+            opacity: 0;
+            transform: scaleY(0);
+            max-height: 0;
+          }
+        }
+        .animate-rpg-menu-open {
+          animation: rpg-menu-open 0.3s ease-out forwards;
+        }
+        .animate-rpg-menu-close {
+          animation: rpg-menu-close 0.3s ease-in forwards;
+        }
+      `}</style>
     </header>
   );
 }

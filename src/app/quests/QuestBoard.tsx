@@ -5,15 +5,15 @@ import { useMemo, useState } from "react";
 
 import { quests } from "@/data/quests";
 
-const filters = ["ALL", "COMPLETED", "ONGOING"] as const;
+const filters = ["すべて", "たっせい", "しんこうちゅう"] as const;
 
 type Filter = (typeof filters)[number];
 
 export default function QuestBoard() {
-  const [activeFilter, setActiveFilter] = useState<Filter>("ALL");
+  const [activeFilter, setActiveFilter] = useState<Filter>("すべて");
 
   const filteredQuests = useMemo(() => {
-    if (activeFilter === "ALL") {
+    if (activeFilter === "すべて") {
       return quests;
     }
 

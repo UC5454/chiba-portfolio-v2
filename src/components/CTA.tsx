@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 export default function CTA() {
   return (
     <section
@@ -13,15 +15,15 @@ export default function CTA() {
           語るより、つくろう。
         </h2>
         <p className="text-blue-200 mb-12 text-base sm:text-lg">
-          次の町（未来）へ、共に出発しませんか？
+          次の時代へ、共に出発しませんか？
         </p>
 
-        <a
-          href="mailto:y.chiba@digital-gorilla.co.jp"
+        <Link
+          href="/contact"
           className="inline-block bg-gold-retro text-black font-[family-name:var(--font-pixel)] text-xs sm:text-sm md:text-base px-6 sm:px-8 py-4 border-b-4 border-r-4 border-black hover:translate-y-1 hover:border-b-0 hover:border-r-0 hover:mb-1 hover:mr-1 transition-all shadow-pixel-gold"
         >
-          冒険を始める (Contact) ▶
-        </a>
+          ▶ はなす
+        </Link>
       </div>
     </section>
   );
