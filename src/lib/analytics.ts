@@ -14,9 +14,8 @@ function gtag(event: string, params?: GTagEvent) {
   if (typeof window === "undefined") return;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const w = window as any;
-  if (typeof w.gtag === "function") {
-    w.gtag("event", event, params);
-  }
+  w.dataLayer = w.dataLayer || [];
+  w.dataLayer.push({ event, ...params });
 }
 
 // --- Lead Acquisition Funnel ---

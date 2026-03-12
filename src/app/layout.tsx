@@ -1,6 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DotGothic16, Press_Start_2P } from "next/font/google";
-import { GoogleAnalytics } from "@next/third-parties/google";
+import { GoogleTagManager } from "@next/third-parties/google";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -96,8 +96,8 @@ export default function RootLayout({
         />
       </head>
       <body className={`${dotgothic.variable} ${pressStart2P.variable} antialiased`}>
-        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
-          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        {process.env.NEXT_PUBLIC_GTM_ID && (
+          <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         )}
         <Header />
         {children}
