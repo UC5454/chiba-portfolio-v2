@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { DotGothic16, Press_Start_2P } from "next/font/google";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
@@ -37,6 +38,9 @@ export const metadata: Metadata = {
     description:
       "あなたの会社にも、AI社員を。AIで可能性を無限大にする千葉勇志のポートフォリオ。",
   },
+  verification: {
+    google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION || "",
+  },
 };
 
 export const viewport: Viewport = {
@@ -54,6 +58,26 @@ const websiteJsonLd = {
     "あなたの会社にも、AI社員を。AIで可能性を無限大にする千葉勇志のポートフォリオ。",
 };
 
+const personJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "@id": "https://chiba-portfolio.vercel.app/#person",
+  name: "千葉勇志",
+  alternateName: "Yushi Chiba",
+  url: "https://chiba-portfolio.vercel.app",
+  jobTitle: "代表取締役 / 取締役COO兼CAIO",
+  worksFor: [
+    { "@type": "Organization", name: "株式会社SOU" },
+    { "@type": "Organization", name: "株式会社デジタルゴリラ" },
+  ],
+  sameAs: [
+    "https://x.com/chibayuushi",
+    "https://note.com/chibayuushi",
+  ],
+  knowsAbout: ["AI導入", "AIエージェント", "AI社員", "DX推進", "AI研修"],
+  description: "25名のAI社員チームを構築・運用する体験主義のAIストラテジスト。東北AIコミュニティ主宰。",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,8 +90,15 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteJsonLd) }}
         />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
+        />
       </head>
       <body className={`${dotgothic.variable} ${pressStart2P.variable} antialiased`}>
+        {process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID && (
+          <GoogleAnalytics gaId={process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID} />
+        )}
         <Header />
         {children}
         <Footer />
