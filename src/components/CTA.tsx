@@ -12,7 +12,7 @@ export default function CTA() {
 
       <div className="relative z-10 text-center px-4">
         <h2 className="text-3xl sm:text-4xl md:text-6xl font-black text-white mb-6 drop-shadow-[4px_4px_0_#000]">
-          語るより、つくろう。
+          語るより、動こう。
         </h2>
         <p className="text-blue-200 mb-12 text-base sm:text-lg">
           次の時代へ、共に出発しませんか？

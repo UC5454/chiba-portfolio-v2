@@ -30,7 +30,7 @@ export default function QuestBoard() {
               key={filter}
               type="button"
               className={`bg-navy-light border border-white/30 px-3 py-1 text-xs font-[family-name:var(--font-pixel)] transition-colors ${
-                isActive ? "bg-gold-retro text-navy-deep" : "text-white"
+                isActive ? "bg-gold-retro text-black font-bold border-gold-retro shadow-[0_0_8px_rgba(255,215,0,0.5)]" : "text-white hover:text-gold-retro"
               }`}
               onClick={() => setActiveFilter(filter)}
             >

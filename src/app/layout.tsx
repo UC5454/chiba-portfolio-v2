@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from "next";
-import { DotGothic16, Press_Start_2P } from "next/font/google";
+import { DotGothic16, Press_Start_2P, Noto_Sans_JP } from "next/font/google";
 import { GoogleTagManager } from "@next/third-parties/google";
 
 import Footer from "@/components/Footer";
@@ -19,6 +19,13 @@ const pressStart2P = Press_Start_2P({
   subsets: ["latin"],
   variable: "--font-pixel",
   display: "swap",
+});
+
+const notoSansJP = Noto_Sans_JP({
+  subsets: ["latin"],
+  variable: "--font-noto",
+  display: "swap",
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -95,7 +102,7 @@ export default function RootLayout({
           dangerouslySetInnerHTML={{ __html: JSON.stringify(personJsonLd) }}
         />
       </head>
-      <body className={`${dotgothic.variable} ${pressStart2P.variable} antialiased`}>
+      <body className={`${dotgothic.variable} ${pressStart2P.variable} ${notoSansJP.variable} antialiased`}>
         {process.env.NEXT_PUBLIC_GTM_ID && (
           <GoogleTagManager gtmId={process.env.NEXT_PUBLIC_GTM_ID} />
         )}

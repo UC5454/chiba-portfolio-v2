@@ -33,6 +33,40 @@ const values = [
   },
 ];
 
+const roles = [
+  { icon: "⚔", label: "やくしょく", value: "取締役COO", sub: "株式会社デジタルゴリラ" },
+  { icon: "👥", label: "なかま", value: "25名", sub: "AI社員チーム" },
+  { icon: "🏰", label: "ギルド", value: "350名超", sub: "東北AIコミュニティ" },
+  { icon: "🏆", label: "めいせい", value: "50回以上", sub: "登壇・セミナー実績" },
+];
+
+const skills = [
+  {
+    label: "しごと",
+    items: [
+      { name: "経営戦略・事業推進", icon: "⚔" },
+      { name: "AI導入・運用設計", icon: "🤖" },
+      { name: "組織マネジメント", icon: "🏛" },
+    ],
+  },
+  {
+    label: "じっせき",
+    items: [
+      { name: "成長率 300〜400%", icon: "📈" },
+      { name: "月間 1,714時間削減", icon: "⏱" },
+      { name: "登壇 50回・動員 2,000名", icon: "🎤" },
+    ],
+  },
+  {
+    label: "なかま",
+    items: [
+      { name: "AI社員 25名体制", icon: "👥" },
+      { name: "東北AIコミュニティ 350名超", icon: "🏰" },
+      { name: "公認スピーカー認定", icon: "🏆" },
+    ],
+  },
+];
+
 export default function AboutPage() {
   return (
     <PageContainer title="冒険者の書" breadcrumb={[{ label: "しょうかい" }]}>
@@ -75,6 +109,24 @@ export default function AboutPage() {
           </div>
         </section>
 
+        <section className="mb-6">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-4 text-center">やくわり</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {roles.map((role) => (
+              <div key={role.label} className="bg-navy-light border-2 border-gold-retro/30 p-5 flex items-start gap-4">
+                <div className="w-12 h-12 bg-gold-retro/20 border-2 border-gold-retro/60 flex items-center justify-center text-xl flex-shrink-0">
+                  {role.icon}
+                </div>
+                <div className="flex-1 min-w-0">
+                  <p className="text-gold-retro font-[family-name:var(--font-pixel)] text-[10px] mb-1">{role.label}</p>
+                  <p className="text-white font-black text-xl mb-0.5">{role.value}</p>
+                  <p className="text-gray-300 text-xs">{role.sub}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
         <section className="bg-navy-light border-2 border-white/20 p-6 mb-6">
           <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-4 text-center">かちかん</h3>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -82,6 +134,27 @@ export default function AboutPage() {
               <div key={item.title} className="border border-white/10 p-4">
                 <h4 className="font-bold text-gold-retro mb-2">{item.title}</h4>
                 <p className="text-sm text-gray-300">{item.description}</p>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="mb-6">
+          <h3 className="font-[family-name:var(--font-pixel)] text-xs text-gold-retro mb-4 text-center">とくぎ一覧</h3>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            {skills.map((group) => (
+              <div key={group.label} className="bg-navy-light border-2 border-gold-retro/20 p-4">
+                <h4 className="font-[family-name:var(--font-pixel)] text-gold-retro text-[10px] mb-3 text-center border-b border-gold-retro/20 pb-2">
+                  {group.label}
+                </h4>
+                <ul className="space-y-2">
+                  {group.items.map((item) => (
+                    <li key={item.name} className="flex items-center gap-2">
+                      <span className="text-lg">{item.icon}</span>
+                      <span className="text-sm text-gray-200">{item.name}</span>
+                    </li>
+                  ))}
+                </ul>
               </div>
             ))}
           </div>

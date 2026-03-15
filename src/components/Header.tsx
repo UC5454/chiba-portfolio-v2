@@ -38,6 +38,8 @@ export default function Header() {
   const [menuAnimating, setMenuAnimating] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
+  const isServiceLP = pathname.startsWith('/services/');
+  if (isServiceLP) return null;
   const isHome = pathname === "/";
   const navItems = isHome ? homeNavItems : subpageNavItems;
 
@@ -83,7 +85,7 @@ export default function Header() {
             alt="千葉勇志"
             width={144}
             height={36}
-            className="h-7 md:h-9 w-auto"
+            className="h-10 md:h-14 w-auto"
             priority
           />
         </Link>

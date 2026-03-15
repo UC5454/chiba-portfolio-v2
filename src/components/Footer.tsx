@@ -1,7 +1,13 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { mediaCategories } from "@/data/mediaCategories";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname.startsWith('/services/')) return null;
+
   return (
     <footer className="bg-black py-8 border-t-4 border-gray-800">
       <div className="container mx-auto px-4">
@@ -40,23 +46,23 @@ export default function Footer() {
             <h4 className="font-[family-name:var(--font-pixel)] text-[9px] text-gold-retro mb-3">つながり</h4>
             <ul className="space-y-2">
               <li>
-                <a href="https://x.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  エックス ↗
+                <a href="https://x.com/UC_DG54" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  𝕏 エックス ↗
                 </a>
               </li>
               <li>
-                <a href="https://note.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  ノート ↗
+                <a href="https://note.com/uc_dg" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  📝 ノート ↗
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  リンクトイン ↗
+                <a href="https://www.facebook.com/UC54dg/?locale=ja_JP" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
+                  📘 フェイスブック ↗
                 </a>
               </li>
               <li>
                 <a href="https://github.com/UC5454" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white transition-colors text-sm">
-                  ギットハブ ↗
+                  🐙 ギットハブ ↗
                 </a>
               </li>
             </ul>

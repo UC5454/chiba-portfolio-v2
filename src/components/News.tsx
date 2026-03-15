@@ -13,7 +13,7 @@ export default function News() {
             <div className="absolute top-2 right-2 w-3 h-3 rounded-full bg-gray-400 shadow-inner" />
 
             <div className="flex justify-center mb-6">
-              <h3 className="text-xl sm:text-2xl font-bold text-[#3e2723] font-[family-name:var(--font-pixel)] bg-[#deb887] px-4 py-1 border-2 border-[#5c3a21] shadow-sm transform -rotate-1">
+              <h3 className="text-2xl sm:text-3xl font-bold text-[#3e2723] font-[family-name:var(--font-pixel)] bg-[#deb887] px-6 py-2 border-4 border-[#5c3a21] shadow-lg transform -rotate-1 tracking-wider drop-shadow-[2px_2px_0_#5c3a21]">
                 旅の掲示板
               </h3>
             </div>
