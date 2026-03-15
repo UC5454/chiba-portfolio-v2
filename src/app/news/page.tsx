@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 
 import PageContainer from "@/components/PageContainer";
+import { getAllNews } from "@/lib/news";
 
 import NewsBoard from "./NewsBoard";
 
@@ -11,10 +12,12 @@ export function generateMetadata(): Metadata {
   };
 }
 
-export default function NewsPage() {
+export default async function NewsPage() {
+  const newsItems = await getAllNews();
+
   return (
     <PageContainer title="旅の掲示板" breadcrumb={[{ label: "お知らせ" }]}>
-      <NewsBoard />
+      <NewsBoard items={newsItems} />
     </PageContainer>
   );
 }

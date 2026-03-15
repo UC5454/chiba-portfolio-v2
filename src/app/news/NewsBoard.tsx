@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useMemo, useState } from "react";
 
-import { colorMap, newsItems } from "@/data/news";
+import { colorMap } from "@/data/news";
+import type { NewsItem } from "@/lib/news";
 
 const filters = [
   { key: "ALL", label: "すべて" },
@@ -14,16 +15,20 @@ const filters = [
 
 type FilterKey = (typeof filters)[number]["key"];
 
-export default function NewsBoard() {
+interface NewsBoardProps {
+  items: NewsItem[];
+}
+
+export default function NewsBoard({ items }: NewsBoardProps) {
   const [activeFilter, setActiveFilter] = useState<FilterKey>("ALL");
 
   const filteredItems = useMemo(() => {
     if (activeFilter === "ALL") {
-      return newsItems;
+      return items;
     }
 
-    return newsItems.filter((item) => item.type === activeFilter);
-  }, [activeFilter]);
+    return items.filter((item) => item.type === activeFilter);
+  }, [activeFilter, items]);
 
   return (
     <div className="bg-wood-dark p-2 rounded-sm shadow-pixel">

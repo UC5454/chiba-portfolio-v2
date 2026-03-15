@@ -1,8 +1,11 @@
 import Link from "next/link";
 
-import { colorMap, newsItems } from "@/data/news";
+import { colorMap } from "@/data/news";
+import { getAllNews } from "@/lib/news";
 
-export default function News() {
+export default async function News() {
+  const newsItems = await getAllNews();
+
   return (
     <section id="news" className="py-16 relative" style={{ backgroundImage: "url('/images/bg-news.webp')", backgroundSize: "cover", backgroundPosition: "center" }}>
       <div className="absolute inset-0 bg-navy-light/85" />

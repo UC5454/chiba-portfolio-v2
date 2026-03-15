@@ -1,11 +1,13 @@
 import type { MetadataRoute } from "next";
 import { getAllArticles } from "@/lib/media";
+import { getAllNews } from "@/lib/news";
 import { mediaCategories } from "@/data/mediaCategories";
 
 const BASE_URL = "https://chiba-portfolio.vercel.app";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const articles = await getAllArticles();
+  const newsItems = await getAllNews();
 
   const staticPages: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date(), changeFrequency: "weekly", priority: 1.0 },
@@ -31,5 +33,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     priority: 0.8,
   }));
 
-  return [...staticPages, ...categoryPages, ...articlePages];
+  const newsPages: MetadataRoute.Sitemap = newsItems.map((item) => ({
+    url: `${BASE_URL}/news/${item.id}`,
+    lastModified: new Date(item.date),
+    changeFrequency: "monthly" as const,
+    priority: 0.6,
+  }));
+
+  return [...staticPages, ...categoryPages, ...articlePages, ...newsPages];
 }

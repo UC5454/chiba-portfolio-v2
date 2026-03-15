@@ -4,19 +4,21 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import PageContainer from "@/components/PageContainer";
-import { colorMap, newsItems } from "@/data/news";
+import { colorMap } from "@/data/news";
+import { getAllNews, getNewsById } from "@/lib/news";
 
 interface NewsDetailPageProps {
   params: Promise<{ id: string }>;
 }
 
-export function generateStaticParams() {
-  return newsItems.map((item) => ({ id: item.id }));
+export async function generateStaticParams() {
+  const items = await getAllNews();
+  return items.map((item) => ({ id: item.id }));
 }
 
 export async function generateMetadata({ params }: NewsDetailPageProps): Promise<Metadata> {
   const { id } = await params;
-  const item = newsItems.find((news) => news.id === id);
+  const item = await getNewsById(id);
 
   if (!item) {
     return {
@@ -27,13 +29,13 @@ export async function generateMetadata({ params }: NewsDetailPageProps): Promise
 
   return {
     title: `${item.text} | お知らせ | 千葉勇志 / Yushi Chiba`,
-    description: item.content,
+    description: item.text,
   };
 }
 
 export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
   const { id } = await params;
-  const item = newsItems.find((news) => news.id === id);
+  const item = await getNewsById(id);
 
   if (!item) {
     notFound();
@@ -73,7 +75,10 @@ export default async function NewsDetailPage({ params }: NewsDetailPageProps) {
             </div>
           )}
 
-          <div className="space-y-2 text-sm sm:text-base whitespace-pre-line">{item.content}</div>
+          <div
+            className="space-y-2 text-sm sm:text-base prose prose-sm max-w-none"
+            dangerouslySetInnerHTML={{ __html: item.content }}
+          />
 
           <div className="mt-8">
             <Link href="/news" className="text-[#5c3a21] hover:text-black transition-colors">
