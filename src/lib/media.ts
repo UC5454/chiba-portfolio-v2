@@ -128,3 +128,15 @@ export async function getArticleBySlug(category: string, slug: string): Promise<
 export function getAllCategories(): string[] {
   return getCategoryDirs();
 }
+
+/** Split HTML content at approximately 40% for mid-article CTA insertion.
+ *  Returns null if fewer than 5 paragraphs (short articles don't need mid CTA). */
+export function splitContentAt40Percent(htmlContent: string): { before: string; after: string } | null {
+  const parts = htmlContent.split("</p>");
+  // Need at least 5 paragraphs to insert a mid CTA
+  if (parts.length < 6) return null; // 6 because split adds an empty tail
+  const splitIndex = Math.floor(parts.length * 0.4);
+  const before = parts.slice(0, splitIndex).join("</p>") + "</p>";
+  const after = parts.slice(splitIndex).join("</p>");
+  return { before, after };
+}

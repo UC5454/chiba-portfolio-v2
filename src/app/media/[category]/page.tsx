@@ -7,6 +7,9 @@ import { getCtaForCategory } from "@/data/mediaCta";
 import { MediaCategory } from "@/types/media";
 import MediaBoard from "../MediaBoard";
 
+// ISR: revalidate every hour
+export const revalidate = 3600;
+
 interface PageProps {
   params: Promise<{ category: string }>;
 }

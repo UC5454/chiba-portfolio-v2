@@ -1,14 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { getAllArticles, getArticleBySlug, getArticlesByCategory } from "@/lib/media";
+import { getAllArticles, getArticleBySlug, getArticlesByCategory, splitContentAt40Percent } from "@/lib/media";
 import { getCategoryBySlug, mediaCategories } from "@/data/mediaCategories";
-import { getCtaForCategory } from "@/data/mediaCta";
+import { getCtaForCategory, getMidCtaForCategory } from "@/data/mediaCta";
 import { MediaArticle } from "@/types/media";
 import ArticleImage from "./ArticleImage";
 import TableOfContents from "./TableOfContents";
 import ShareButtons from "./ShareButtons";
 import ArticleScrollTracker from "./ArticleScrollTracker";
+
+// ISR: revalidate every hour
+export const revalidate = 3600;
 
 interface PageProps {
   params: Promise<{ category: string; slug: string }>;
@@ -64,7 +67,6 @@ function getCrossRecommendations(
     .filter((c) => c.score > 0)
     .sort((a, b) => b.score - a.score);
 
-  // If not enough tag-based matches, fill with recent from other categories
   const result = candidates.slice(0, maxCount).map((c) => c.article);
   if (result.length < maxCount) {
     const usedSlugs = new Set([
@@ -89,8 +91,8 @@ function getPrevNext(
     (a) => a.category === current.category && a.slug === current.slug
   );
   return {
-    prev: idx < sorted.length - 1 ? sorted[idx + 1] : null, // older
-    next: idx > 0 ? sorted[idx - 1] : null, // newer
+    prev: idx < sorted.length - 1 ? sorted[idx + 1] : null,
+    next: idx > 0 ? sorted[idx - 1] : null,
   };
 }
 
@@ -113,6 +115,7 @@ export default async function ArticlePage({ params }: PageProps) {
 
   const catInfo = getCategoryBySlug(category);
   const cta = getCtaForCategory(article.category);
+  const midCta = getMidCtaForCategory(article.category);
 
   // Same-category related articles
   const allInCategory = await getArticlesByCategory(category);
@@ -127,6 +130,9 @@ export default async function ArticlePage({ params }: PageProps) {
 
   // Portfolio link
   const portfolioLink = getPortfolioLink(category);
+
+  // Split content for mid-article CTA
+  const contentSplit = splitContentAt40Percent(article.content);
 
   const BASE_URL = "https://chiba-portfolio.vercel.app";
 
@@ -180,7 +186,7 @@ export default async function ArticlePage({ params }: PageProps) {
         wordCount={article.readingTime * 500}
         readingTime={article.readingTime}
       />
-      <div className="bg-[#fdf5e6]">
+      <div className="bg-white">
         <article className="max-w-3xl mx-auto px-4 sm:px-6 py-10">
           {/* Breadcrumb */}
           <nav className="text-sm text-gray-400 mb-6">
@@ -241,14 +247,49 @@ export default async function ArticlePage({ params }: PageProps) {
           {/* Table of Contents */}
           <TableOfContents headings={article.headings} articleTitle={article.title} />
 
-          {/* Body */}
-          <div
-            className="media-content"
-            dangerouslySetInnerHTML={{ __html: article.content }}
-          />
+          {/* Body — with or without mid-article CTA */}
+          {contentSplit ? (
+            <>
+              <div
+                className="media-content"
+                dangerouslySetInnerHTML={{ __html: contentSplit.before }}
+              />
+
+              {/* Mid-article CTA (40% point) */}
+              <div
+                role="complementary"
+                aria-label="関連サービス"
+                className="my-8 p-5 bg-blue-50 border border-blue-200 rounded-xl"
+              >
+                <p className="text-base font-bold text-gray-900 mb-1">{midCta.heading}</p>
+                <p className="text-sm text-gray-600 mb-4">{midCta.description}</p>
+                <a
+                  href={midCta.href}
+                  className="inline-block text-sm font-bold text-white px-5 py-2.5 rounded-lg transition-opacity hover:opacity-90"
+                  style={{ backgroundColor: catInfo?.color || "#2563eb" }}
+                  data-gtm-event="cta_click"
+                  data-gtm-cta-text={midCta.buttonText}
+                  data-gtm-cta-position="mid-article"
+                  data-gtm-category={category}
+                >
+                  {midCta.buttonText}
+                </a>
+              </div>
+
+              <div
+                className="media-content"
+                dangerouslySetInnerHTML={{ __html: contentSplit.after }}
+              />
+            </>
+          ) : (
+            <div
+              className="media-content"
+              dangerouslySetInnerHTML={{ __html: article.content }}
+            />
+          )}
 
           {/* Share buttons */}
-          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-gray-100 pt-6">
+          <div className="mt-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 border-t border-gray-200 pt-6">
             <ShareButtons
               title={article.title}
               url={`https://chiba-portfolio.vercel.app/media/${category}/${slug}`}
@@ -269,11 +310,11 @@ export default async function ArticlePage({ params }: PageProps) {
 
           {/* Internal link to portfolio */}
           {portfolioLink && (
-            <div className="mt-10 p-4 bg-[#f5edd6] rounded-lg border border-[#c5a000]/20 flex items-center justify-between">
+            <div className="mt-10 p-4 bg-blue-50 rounded-lg border border-blue-200 flex items-center justify-between">
               <span className="text-sm text-gray-600">この記事のテーマに関連するポートフォリオ</span>
               <Link
                 href={portfolioLink.href}
-                className="text-sm font-medium text-[#0ea5e9] hover:text-[#ffd700] transition-colors flex items-center gap-1"
+                className="text-sm font-medium text-blue-600 hover:text-blue-700 transition-colors flex items-center gap-1"
               >
                 {portfolioLink.label}
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" /></svg>
@@ -281,8 +322,8 @@ export default async function ArticlePage({ params }: PageProps) {
             </div>
           )}
 
-          {/* Author profile with SNS links */}
-          <div className="mt-12 p-6 bg-[#f5edd6] rounded-xl border border-[#c5a000]/20">
+          {/* Author profile */}
+          <div className="mt-12 p-6 bg-gray-50 rounded-xl border border-gray-200">
             <div className="flex items-start gap-4">
               <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center text-gray-600 font-bold text-lg shrink-0">
                 千
@@ -306,6 +347,15 @@ export default async function ArticlePage({ params }: PageProps) {
                     @chibayuushi
                   </a>
                   <a
+                    href="https://note.com/chibayuushi"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-900 transition-colors"
+                  >
+                    <svg className="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 15h-2v-6h2v6zm4 0h-2v-6h2v6zm-2-8h-2V7h2v2z" /></svg>
+                    note
+                  </a>
+                  <a
                     href="/"
                     className="inline-flex items-center gap-1 text-xs text-gray-500 hover:text-gray-900 transition-colors"
                   >
@@ -317,15 +367,17 @@ export default async function ArticlePage({ params }: PageProps) {
             </div>
           </div>
 
-          {/* Category-specific CTA */}
+          {/* Footer CTA — category color background */}
           <div
-            className="mt-8 p-6 md:p-8 rounded-xl text-center bg-[#0a0e2a]"
+            className="mt-8 p-6 md:p-8 rounded-xl text-center text-white"
+            style={{ backgroundColor: cta.accent }}
           >
-            <h3 className="text-lg md:text-xl font-bold mb-2 text-white">{cta.heading}</h3>
-            <p className="text-sm text-gray-300 mb-5 max-w-lg mx-auto">{cta.description}</p>
+            <h3 className="text-lg md:text-xl font-bold mb-2">{cta.heading}</h3>
+            <p className="text-sm opacity-90 mb-5 max-w-lg mx-auto">{cta.description}</p>
             <a
               href={cta.href}
-              className="inline-block bg-[#ffd700] text-[#0a0e2a] font-[family-name:var(--font-pixel)] text-xs sm:text-sm px-6 py-3 rounded-lg border-b-2 border-r-2 border-[#8b6914] hover:bg-[#c5a000] transition-colors"
+              className="inline-block bg-white font-bold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
+              style={{ color: cta.accent }}
               data-gtm-event="cta_click"
               data-gtm-cta-text={cta.buttonText}
               data-gtm-cta-position="article-bottom"
@@ -348,7 +400,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     <Link
                       key={r.slug}
                       href={`/media/${r.category}/${r.slug}`}
-                      className="bg-white/80 p-4 rounded-xl border border-[#c5a000]/20 hover:shadow-md transition-shadow block"
+                      className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all block"
                     >
                       {rCat && (
                         <span
@@ -382,7 +434,7 @@ export default async function ArticlePage({ params }: PageProps) {
                     <Link
                       key={`${r.category}/${r.slug}`}
                       href={`/media/${r.category}/${r.slug}`}
-                      className="bg-white/80 p-4 rounded-xl border border-[#c5a000]/20 hover:shadow-md transition-shadow block"
+                      className="bg-white p-4 rounded-xl border border-gray-200 hover:shadow-md hover:border-gray-300 transition-all block"
                     >
                       {rCat && (
                         <span
@@ -409,10 +461,10 @@ export default async function ArticlePage({ params }: PageProps) {
               {prev ? (
                 <Link
                   href={`/media/${prev.category}/${prev.slug}`}
-                  className="p-4 border border-[#c5a000]/20 rounded-xl hover:bg-[#f5edd6] transition-colors group"
+                  className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors group"
                 >
                   <span className="text-xs text-gray-400">← 前の記事</span>
-                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-[#0ea5e9] transition-colors">
+                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {prev.title}
                   </p>
                 </Link>
@@ -422,10 +474,10 @@ export default async function ArticlePage({ params }: PageProps) {
               {next ? (
                 <Link
                   href={`/media/${next.category}/${next.slug}`}
-                  className="p-4 border border-[#c5a000]/20 rounded-xl hover:bg-[#f5edd6] transition-colors text-right group"
+                  className="p-4 border border-gray-200 rounded-xl hover:bg-gray-50 transition-colors text-right group"
                 >
                   <span className="text-xs text-gray-400">次の記事 →</span>
-                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-[#0ea5e9] transition-colors">
+                  <p className="text-sm font-medium text-gray-900 mt-1 line-clamp-2 group-hover:text-blue-600 transition-colors">
                     {next.title}
                   </p>
                 </Link>

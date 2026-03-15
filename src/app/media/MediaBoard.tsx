@@ -7,17 +7,30 @@ import { MediaArticle, CategoryInfo } from "@/types/media";
 interface MediaBoardProps {
   articles: MediaArticle[];
   categories: CategoryInfo[];
+  perPage?: number;
 }
 
 const ALL_FILTER = "ALL";
 
-export default function MediaBoard({ articles, categories }: MediaBoardProps) {
+export default function MediaBoard({ articles, categories, perPage = 12 }: MediaBoardProps) {
   const [activeFilter, setActiveFilter] = useState(ALL_FILTER);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const filteredArticles = useMemo(() => {
     if (activeFilter === ALL_FILTER) return articles;
     return articles.filter((a) => a.category === activeFilter);
   }, [activeFilter, articles]);
+
+  const totalPages = Math.max(1, Math.ceil(filteredArticles.length / perPage));
+  const paginatedArticles = filteredArticles.slice(
+    (currentPage - 1) * perPage,
+    currentPage * perPage
+  );
+
+  const handleFilterChange = (filter: string) => {
+    setActiveFilter(filter);
+    setCurrentPage(1);
+  };
 
   const getCategoryInfo = (slug: string) => categories.find((c) => c.slug === slug);
 
@@ -29,10 +42,10 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
           type="button"
           className={`px-4 py-2 text-sm font-medium rounded-full border transition-colors ${
             activeFilter === ALL_FILTER
-              ? "bg-[#3e2723] text-white border-[#3e2723]"
-              : "bg-white text-[#5c3a21] border-[#5c3a21]/30 hover:border-[#5c3a21]/50"
+              ? "bg-gray-900 text-white border-gray-900"
+              : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
           }`}
-          onClick={() => setActiveFilter(ALL_FILTER)}
+          onClick={() => handleFilterChange(ALL_FILTER)}
         >
           すべて
         </button>
@@ -43,30 +56,33 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
             className={`px-4 py-2 text-sm font-medium rounded-full border transition-colors ${
               activeFilter === cat.slug
                 ? "text-white border-transparent"
-                : "bg-white text-[#5c3a21] border-[#5c3a21]/30 hover:border-[#5c3a21]/50"
+                : "bg-white text-gray-600 border-gray-300 hover:border-gray-400"
             }`}
             style={activeFilter === cat.slug ? { backgroundColor: cat.color, borderColor: cat.color } : undefined}
-            onClick={() => setActiveFilter(cat.slug)}
+            onClick={() => handleFilterChange(cat.slug)}
           >
             {cat.name}
           </button>
         ))}
       </div>
 
+      {/* Article count */}
+      <p className="text-sm text-gray-400 mb-4">{filteredArticles.length}件の記事</p>
+
       {/* Article grid */}
-      {filteredArticles.length === 0 ? (
+      {paginatedArticles.length === 0 ? (
         <div className="text-center py-16 text-gray-400">
           <p className="text-sm">このカテゴリの記事はまだありません</p>
         </div>
       ) : (
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {filteredArticles.map((article) => {
+          {paginatedArticles.map((article) => {
             const catInfo = getCategoryInfo(article.category);
             return (
               <Link
                 key={`${article.category}/${article.slug}`}
                 href={`/media/${article.category}/${article.slug}`}
-                className="bg-white border-2 border-[#5c3a21]/15 rounded-xl overflow-hidden hover:border-[#5c3a21]/30 hover:shadow-lg transition-all group"
+                className="bg-white border border-gray-200 rounded-xl overflow-hidden hover:border-gray-300 hover:shadow-md transition-all group"
               >
                 {/* Thumbnail */}
                 <div className="w-full aspect-video bg-gray-100 relative overflow-hidden">
@@ -110,6 +126,43 @@ export default function MediaBoard({ articles, categories }: MediaBoardProps) {
             );
           })}
         </div>
+      )}
+
+      {/* Pagination */}
+      {totalPages > 1 && (
+        <nav className="mt-10 flex items-center justify-center gap-2" aria-label="ページナビゲーション">
+          <button
+            type="button"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+            className="px-3 py-2 text-sm rounded-lg text-gray-500 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            ← 前へ
+          </button>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              type="button"
+              onClick={() => setCurrentPage(page)}
+              aria-current={page === currentPage ? "page" : undefined}
+              className={`w-10 h-10 text-sm rounded-lg transition-colors ${
+                page === currentPage
+                  ? "bg-blue-600 text-white"
+                  : "text-gray-600 hover:bg-gray-100"
+              }`}
+            >
+              {page}
+            </button>
+          ))}
+          <button
+            type="button"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+            className="px-3 py-2 text-sm rounded-lg text-gray-500 hover:text-gray-900 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
+          >
+            次へ →
+          </button>
+        </nav>
       )}
     </div>
   );

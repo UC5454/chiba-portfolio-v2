@@ -5,6 +5,9 @@ import { mediaCategories } from "@/data/mediaCategories";
 import { defaultCta } from "@/data/mediaCta";
 import MediaBoard from "./MediaBoard";
 
+// ISR: revalidate every hour
+export const revalidate = 3600;
+
 export function generateMetadata(): Metadata {
   return {
     title: "千葉勇志メディア — AI社員・AI導入の実践知",
@@ -25,21 +28,21 @@ export default async function MediaPage() {
   return (
     <div>
       {/* Breadcrumb */}
-      <nav className="bg-[#f5f0e8] px-4 sm:px-6 py-2 text-sm text-gray-500 border-b border-[#5c3a21]/20">
+      <nav className="bg-white px-4 sm:px-6 py-2 text-sm text-gray-500 border-b border-gray-200">
         <div className="max-w-5xl mx-auto">
           <Link href="/" className="hover:text-gray-700">トップ</Link>
-          <span className="mx-2 font-[family-name:var(--font-pixel)] text-xs">&gt;</span>
+          <span className="mx-2 text-xs">&gt;</span>
           <span className="text-gray-700">メディア</span>
         </div>
       </nav>
 
       {/* Hero */}
-      <section className="bg-[#f5f0e8] border-b border-[#5c3a21]/20">
+      <section className="bg-white border-b border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-16 md:py-20">
-          <h1 className="text-3xl md:text-4xl font-bold text-[#3e2723] font-[family-name:var(--font-pixel)] mb-4">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
             AI社員・AI導入の実践知
           </h1>
-          <p className="text-lg text-[#5c3a21]/70 mb-8 max-w-2xl">
+          <p className="text-lg text-gray-500 mb-8 max-w-2xl">
             25名のAI社員を運用する経営者が、体験に基づいたリアルな知見を発信します。
           </p>
           <div className="flex items-center gap-3">
@@ -56,9 +59,9 @@ export default async function MediaPage() {
 
       {/* Pickup / Featured articles */}
       {featured.length > 0 && (
-        <section className="bg-[#faf6f0] border-b border-[#5c3a21]/10">
+        <section className="bg-gray-50 border-b border-gray-200">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 py-10">
-            <h2 className="text-sm font-bold text-[#5c3a21] uppercase tracking-wider mb-6 font-[family-name:var(--font-pixel)]">
+            <h2 className="text-sm font-bold text-gray-500 uppercase tracking-wider mb-6">
               PICKUP
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -68,7 +71,7 @@ export default async function MediaPage() {
                   <Link
                     key={`${article.category}/${article.slug}`}
                     href={`/media/${article.category}/${article.slug}`}
-                    className="group flex flex-col bg-white rounded-xl overflow-hidden border-2 border-[#5c3a21]/20 hover:border-[#5c3a21]/40 hover:shadow-lg transition-all"
+                    className="group flex flex-col bg-white rounded-xl overflow-hidden border border-gray-200 hover:border-gray-300 hover:shadow-lg transition-all"
                   >
                     {article.thumbnail && (
                       <div className="w-full aspect-video bg-gray-100 overflow-hidden">
@@ -106,15 +109,15 @@ export default async function MediaPage() {
       )}
 
       {/* CTA Banner */}
-      <section className="bg-gradient-to-r from-[#0a0e2a] to-[#1a1e4a]">
+      <section className="bg-blue-600">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-8 flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="text-white">
-            <p className="font-bold text-lg font-[family-name:var(--font-pixel)]">{defaultCta.heading}</p>
+            <p className="font-bold text-lg">{defaultCta.heading}</p>
             <p className="text-sm opacity-80">{defaultCta.description}</p>
           </div>
           <a
             href={defaultCta.href}
-            className="shrink-0 inline-block bg-[#ffd700] text-[#0a0e2a] font-bold text-sm px-6 py-3 rounded-lg hover:bg-[#ffd700]/90 transition-colors"
+            className="shrink-0 inline-block bg-white text-blue-600 font-bold text-sm px-6 py-3 rounded-lg hover:opacity-90 transition-opacity"
             data-gtm-event="cta_click"
             data-gtm-cta-text={defaultCta.buttonText}
             data-gtm-cta-position="media-top-banner"
@@ -125,16 +128,16 @@ export default async function MediaPage() {
       </section>
 
       {/* Articles */}
-      <section className="bg-[#faf6f0]">
+      <section className="bg-gray-50">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
           <MediaBoard articles={articles} categories={mediaCategories} />
         </div>
       </section>
 
       {/* Category navigation section */}
-      <section className="bg-[#f5f0e8] border-t border-[#5c3a21]/10">
+      <section className="bg-white border-t border-gray-200">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 py-12">
-          <h2 className="text-lg font-bold text-[#3e2723] mb-6 font-[family-name:var(--font-pixel)]">カテゴリから探す</h2>
+          <h2 className="text-lg font-bold text-gray-900 mb-6">カテゴリから探す</h2>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
             {mediaCategories.map((cat) => {
               const count = articles.filter((a) => a.category === cat.slug).length;
@@ -142,7 +145,7 @@ export default async function MediaPage() {
                 <Link
                   key={cat.slug}
                   href={`/media/${cat.slug}`}
-                  className="p-4 bg-white border-2 border-[#5c3a21]/15 rounded-xl hover:border-[#5c3a21]/40 hover:shadow-sm transition-all group"
+                  className="p-4 bg-white border border-gray-200 rounded-xl hover:border-gray-300 hover:shadow-sm transition-all group"
                 >
                   <span className="text-2xl">{cat.icon}</span>
                   <p className="font-bold text-gray-900 mt-2 group-hover:text-blue-600 transition-colors">
